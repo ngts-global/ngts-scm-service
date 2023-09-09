@@ -157,7 +157,6 @@
 	</dependencyManagement>
 
  	<modules>
-		<module>ngts-common-service</module>
 		<module>ngts-scm-service</module>
 	</modules>
     
