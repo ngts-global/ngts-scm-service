@@ -1,0 +1,11 @@
+com/ngts/scm/vo/StudentVO.class
+com/ngts/scm/dto/StudentDTO.class
+com/ngts/scm/response/MessageResponse.class
+com/ngts/scm/entity/Student.class
+com/ngts/scm/SchoolManagementSystemApplication.class
+com/ngts/scm/controller/StudentController.class
+com/ngts/scm/repository/StudentRepository.class
+com/ngts/scm/vo/StudentQueryVO.class
+com/ngts/scm/swagger/SwaggerConfig2.class
+com/ngts/scm/vo/StudentUpdateVO.class
+com/ngts/scm/service/StudentService.class

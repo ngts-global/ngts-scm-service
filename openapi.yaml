@@ -1,0 +1,2049 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /scm/api/users/{id}:
+    get:
+      tags:
+        - users-controller
+      operationId: getById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UsersDTO'
+    put:
+      tags:
+        - users-controller
+      operationId: update
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsersUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - users-controller
+      operationId: delete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/userRoles/{id}:
+    get:
+      tags:
+        - user-roles-controller
+      operationId: getById_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserRolesDTO'
+    put:
+      tags:
+        - user-roles-controller
+      operationId: update_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRolesUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - user-roles-controller
+      operationId: delete_1
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/transport/{id}:
+    get:
+      tags:
+        - transport-controller
+      operationId: getById_2
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransportDTO'
+    put:
+      tags:
+        - transport-controller
+      operationId: update_2
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransportUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - transport-controller
+      operationId: delete_2
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/teacher/{id}:
+    get:
+      tags:
+        - teacher-controller
+      operationId: getById_3
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TeacherDTO'
+    put:
+      tags:
+        - teacher-controller
+      operationId: update_3
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeacherUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - teacher-controller
+      operationId: delete_3
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/subject/{id}:
+    get:
+      tags:
+        - subject-controller
+      operationId: getById_4
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SubjectDTO'
+    put:
+      tags:
+        - subject-controller
+      operationId: update_4
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubjectUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - subject-controller
+      operationId: delete_4
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/student/{id}:
+    get:
+      tags:
+        - student-controller
+      operationId: getById_5
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+    put:
+      tags:
+        - student-controller
+      operationId: update_5
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - student-controller
+      operationId: delete_5
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/settings/{id}:
+    get:
+      tags:
+        - settings-controller
+      operationId: getById_6
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SettingsDTO'
+    put:
+      tags:
+        - settings-controller
+      operationId: update_6
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettingsUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - settings-controller
+      operationId: delete_6
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/roles/{id}:
+    get:
+      tags:
+        - roles-controller
+      operationId: getById_7
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RolesDTO'
+    put:
+      tags:
+        - roles-controller
+      operationId: update_7
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RolesUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - roles-controller
+      operationId: delete_7
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/payment/{id}:
+    get:
+      tags:
+        - payment-controller
+      operationId: getById_8
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaymentDTO'
+    put:
+      tags:
+        - payment-controller
+      operationId: update_8
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - payment-controller
+      operationId: delete_8
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/parent/{id}:
+    get:
+      tags:
+        - parent-controller
+      operationId: getById_9
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ParentDTO'
+    put:
+      tags:
+        - parent-controller
+      operationId: update_9
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParentUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - parent-controller
+      operationId: delete_9
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/noticeboard/{id}:
+    get:
+      tags:
+        - noticeboard-controller
+      operationId: getById_10
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/NoticeboardDTO'
+    put:
+      tags:
+        - noticeboard-controller
+      operationId: update_10
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoticeboardUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - noticeboard-controller
+      operationId: delete_10
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/mark/{id}:
+    get:
+      tags:
+        - mark-controller
+      operationId: getById_11
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MarkDTO'
+    put:
+      tags:
+        - mark-controller
+      operationId: update_11
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarkUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - mark-controller
+      operationId: delete_11
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/language/{id}:
+    get:
+      tags:
+        - language-controller
+      operationId: getById_12
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LanguageDTO'
+    put:
+      tags:
+        - language-controller
+      operationId: update_12
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LanguageUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - language-controller
+      operationId: delete_12
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/invoice/{id}:
+    get:
+      tags:
+        - invoice-controller
+      operationId: getById_13
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InvoiceDTO'
+    put:
+      tags:
+        - invoice-controller
+      operationId: update_13
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - invoice-controller
+      operationId: delete_13
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/grade/{id}:
+    get:
+      tags:
+        - grade-controller
+      operationId: getById_14
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GradeDTO'
+    put:
+      tags:
+        - grade-controller
+      operationId: update_14
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GradeUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - grade-controller
+      operationId: delete_14
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/exam/{id}:
+    get:
+      tags:
+        - exam-controller
+      operationId: getById_15
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExamDTO'
+    put:
+      tags:
+        - exam-controller
+      operationId: update_15
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExamUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - exam-controller
+      operationId: delete_15
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/dormitory/{id}:
+    get:
+      tags:
+        - dormitory-controller
+      operationId: getById_16
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DormitoryDTO'
+    put:
+      tags:
+        - dormitory-controller
+      operationId: update_16
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DormitoryUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - dormitory-controller
+      operationId: delete_16
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/classRoutine/{id}:
+    get:
+      tags:
+        - class-routine-controller
+      operationId: getById_17
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ClassRoutineDTO'
+    put:
+      tags:
+        - class-routine-controller
+      operationId: update_17
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassRoutineUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - class-routine-controller
+      operationId: delete_17
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/class/{id}:
+    get:
+      tags:
+        - class-controller
+      operationId: getById_18
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ClassDTO'
+    put:
+      tags:
+        - class-controller
+      operationId: update_18
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - class-controller
+      operationId: delete_18
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/book/{id}:
+    get:
+      tags:
+        - book-controller
+      operationId: getById_19
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BookDTO'
+    put:
+      tags:
+        - book-controller
+      operationId: update_19
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - book-controller
+      operationId: delete_19
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/attendance/{id}:
+    get:
+      tags:
+        - attendance-controller
+      operationId: getById_20
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AttendanceDTO'
+    put:
+      tags:
+        - attendance-controller
+      operationId: update_20
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttendanceUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - attendance-controller
+      operationId: delete_20
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/admin/{id}:
+    get:
+      tags:
+        - admin-controller
+      operationId: getById_21
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AdminDTO'
+    put:
+      tags:
+        - admin-controller
+      operationId: update_21
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUpdateVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - admin-controller
+      operationId: delete_21
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /scm/api/users:
+    get:
+      tags:
+        - users-controller
+      operationId: query
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/UsersQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageUsersDTO'
+    post:
+      tags:
+        - users-controller
+      operationId: save
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsersVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/userRoles:
+    get:
+      tags:
+        - user-roles-controller
+      operationId: query_1
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/UserRolesQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageUserRolesDTO'
+    post:
+      tags:
+        - user-roles-controller
+      operationId: save_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRolesVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/transport:
+    get:
+      tags:
+        - transport-controller
+      operationId: query_2
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/TransportQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageTransportDTO'
+    post:
+      tags:
+        - transport-controller
+      operationId: save_2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransportVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/teacher:
+    get:
+      tags:
+        - teacher-controller
+      operationId: query_3
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/TeacherQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageTeacherDTO'
+    post:
+      tags:
+        - teacher-controller
+      operationId: save_3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeacherVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/subject:
+    get:
+      tags:
+        - subject-controller
+      operationId: query_4
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/SubjectQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageSubjectDTO'
+    post:
+      tags:
+        - subject-controller
+      operationId: save_4
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubjectVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/student:
+    post:
+      tags:
+        - student-controller
+      operationId: save_5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/settings:
+    get:
+      tags:
+        - settings-controller
+      operationId: query_5
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/SettingsQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageSettingsDTO'
+    post:
+      tags:
+        - settings-controller
+      operationId: save_6
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettingsVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/roles:
+    get:
+      tags:
+        - roles-controller
+      operationId: query_6
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/RolesQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageRolesDTO'
+    post:
+      tags:
+        - roles-controller
+      operationId: save_7
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RolesVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/payment:
+    get:
+      tags:
+        - payment-controller
+      operationId: query_7
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/PaymentQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PagePaymentDTO'
+    post:
+      tags:
+        - payment-controller
+      operationId: save_8
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/parent:
+    get:
+      tags:
+        - parent-controller
+      operationId: query_8
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/ParentQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageParentDTO'
+    post:
+      tags:
+        - parent-controller
+      operationId: save_9
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParentVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/noticeboard:
+    get:
+      tags:
+        - noticeboard-controller
+      operationId: query_9
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/NoticeboardQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageNoticeboardDTO'
+    post:
+      tags:
+        - noticeboard-controller
+      operationId: save_10
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoticeboardVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/mark:
+    get:
+      tags:
+        - mark-controller
+      operationId: query_10
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/MarkQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageMarkDTO'
+    post:
+      tags:
+        - mark-controller
+      operationId: save_11
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarkVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/language:
+    get:
+      tags:
+        - language-controller
+      operationId: query_11
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/LanguageQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageLanguageDTO'
+    post:
+      tags:
+        - language-controller
+      operationId: save_12
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LanguageVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/invoice:
+    get:
+      tags:
+        - invoice-controller
+      operationId: query_12
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/InvoiceQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageInvoiceDTO'
+    post:
+      tags:
+        - invoice-controller
+      operationId: save_13
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/grade:
+    get:
+      tags:
+        - grade-controller
+      operationId: query_13
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/GradeQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageGradeDTO'
+    post:
+      tags:
+        - grade-controller
+      operationId: save_14
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GradeVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/exam:
+    get:
+      tags:
+        - exam-controller
+      operationId: query_14
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/ExamQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageExamDTO'
+    post:
+      tags:
+        - exam-controller
+      operationId: save_15
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExamVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/dormitory:
+    get:
+      tags:
+        - dormitory-controller
+      operationId: query_15
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/DormitoryQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageDormitoryDTO'
+    post:
+      tags:
+        - dormitory-controller
+      operationId: save_16
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DormitoryVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/class:
+    get:
+      tags:
+        - class-controller
+      operationId: query_16
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/ClassQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageClassDTO'
+    post:
+      tags:
+        - class-controller
+      operationId: save_17
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/classRoutine:
+    get:
+      tags:
+        - class-routine-controller
+      operationId: query_17
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/ClassRoutineQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageClassRoutineDTO'
+    post:
+      tags:
+        - class-routine-controller
+      operationId: save_18
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassRoutineVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/book:
+    get:
+      tags:
+        - book-controller
+      operationId: query_18
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/BookQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageBookDTO'
+    post:
+      tags:
+        - book-controller
+      operationId: save_19
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/attendance:
+    get:
+      tags:
+        - attendance-controller
+      operationId: query_19
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/AttendanceQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageAttendanceDTO'
+    post:
+      tags:
+        - attendance-controller
+      operationId: save_20
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttendanceVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /scm/api/admin:
+    get:
+      tags:
+        - admin-controller
+      operationId: query_20
+      parameters:
+        - name: vO
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/AdminQueryVO'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageAdminDTO'
+    post:
+      tags:
+        - admin-controller
+      operationId: save_21
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminVO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/auth/signup:
+    post:
+      tags:
+        - auth-controller
+      operationId: registerUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/auth/signout:
+    post:
+      tags:
+        - auth-controller
+      operationId: logoutUser
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/auth/signin:
+    post:
+      tags:
+        - auth-controller
+      operationId: authenticateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /scm/api/teacher/all:
+    get:
+      tags:
+        - teacher-controller
+      operationId: getAllTeachers
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeacherDTO'
+  /scm/api/student/all:
+    get:
+      tags:
+        - student-controller
+      operationId: getAllStudents
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/test/user:
+    get:
+      tags:
+        - test-controller
+      operationId: userAccess
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/test/mod:
+    get:
+      tags:
+        - test-controller
+      operationId: moderatorAccess
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/test/all:
+    get:
+      tags:
+        - test-controller
+      operationId: allAccess
+      responses:
+        '200':
+          description: OK
+          content:
+            application/html:
+              schema:
+                type: string
+  /api/test/admin:
+    get:
+      tags:
+        - test-controller
+      operationId: adminAccess
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string

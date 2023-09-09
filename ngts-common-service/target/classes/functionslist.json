@@ -1,0 +1,50 @@
+{
+  "rolesGroupList":[
+  {
+    "roleName": "ADMIN",
+    "functionsList": [
+      {
+        "funcKey": "AddStudents",
+        "funcCode": "1",
+        "funcValue": "/scm/api/student/student"
+      },
+      {
+        "funcKey": "AddStaffs",
+        "funcCode": "1",
+        "funcValue": "/scm/api/teacher/teacher"
+      },
+      {
+        "funcKey": "GetStudent",
+        "funcCode": "2",
+        "funcValue": "/scm/api/student/all"
+      }
+    ]
+  },
+  {
+    "roleName": "STAFFS",
+    "functionsList": [
+      {
+        "funcKey": "AddTeachers",
+        "funcCode": "3",
+        "funcValue": "/scm/api/teacher/**"
+      }
+    ]
+  },
+  {
+    "roleName": "STUDENTS",
+    "functionsList": [
+      {
+        "funcKey": "AddStudents",
+        "funcCode": "4",
+        "funcValue": "/scm/api/student/student"
+      },
+      {
+        "funcKey": "EditStudent",
+        "funcCode": "5",
+        "funcValue": "/scm/api/student/all"
+      }
+    ]
+  }
+]
+}
+
