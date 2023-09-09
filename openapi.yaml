@@ -89,3 +89,44 @@ paths:
             '*/*':
               schema:
                 type: object
+
+components:
+  schemas:
+    StudentVO:
+      required:
+        - address
+        - birthday
+        - bloodGroup
+        - classId
+        - dormitoryId
+        - dormitoryRoomNumber
+        - email
+        - fatherName
+        - motherName
+        - name
+        - password
+        - phone
+        - religion
+        - roll
+        - sex
+        - studentId
+        - transportId
+    StudentUpdateVO:
+      required:
+        - address
+        - birthday
+        - bloodGroup
+        - classId
+        - dormitoryId
+        - dormitoryRoomNumber
+        - email
+        - fatherName
+        - motherName
+        - name
+        - password
+        - phone
+        - religion
+        - roll
+        - sex
+        - studentId
+        - transportId
