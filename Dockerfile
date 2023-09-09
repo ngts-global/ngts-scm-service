@@ -18,6 +18,6 @@ RUN addgroup -g 10016 choreo &&  adduser  --disabled-password  --no-create-home 
 VOLUME /tmp
 USER 10016
 # Add Spring Boot app.jar to Container
-COPY --from=0 "/java-springboot/ngts-scm-service/target/ngts-*.jar" app.jar
+COPY --from=0 "/java-springboot/target/ngts-*.jar" app.jar
 # Fire up our Spring Boot app by default
 CMD [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
