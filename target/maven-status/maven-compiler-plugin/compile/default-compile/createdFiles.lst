@@ -4,7 +4,6 @@ com/ngts/common/redis/RedisCacheUtils.class
 com/ngts/common/redis/RedisConfig.class
 com/ngts/common/redis/PublisherService.class
 com/ngts/scm/repository/StudentRepository.class
-com/ngts/scm/swagger/SwaggerConfig2.class
 com/ngts/common/func/pojo/RoleFunctionMapping.class
 com/ngts/common/e2e/EncryptionUtils.class
 com/ngts/scm/service/StudentService.class

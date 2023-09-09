@@ -1,7 +1,6 @@
 package com.ngts.scm.entity;
 
 import lombok.Data;
-
 import jakarta.persistence.*;
 import java.io.Serializable;
 

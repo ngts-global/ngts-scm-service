@@ -1,13 +1,11 @@
 package com.ngts.scm.vo;
 
-import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
 @Data
-@ApiModel("Save ")
 public class StudentVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
