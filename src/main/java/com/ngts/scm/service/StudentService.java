@@ -1,5 +1,7 @@
 package com.ngts.scm.service;
 
+import com.ngts.common.redis.events.StudentEventObj;
+import com.ngts.common.redis.events.impl.StudentEventService;
 import com.ngts.scm.dto.StudentDTO;
 import com.ngts.scm.entity.Student;
 import com.ngts.scm.repository.StudentRepository;
@@ -21,6 +23,8 @@ public class StudentService {
     @Autowired
     private ModelMapper mapper;
 
+    @Autowired
+    private StudentEventService studentEventService;
 
     @Autowired
     private StudentRepository studentRepository;
@@ -29,6 +33,17 @@ public class StudentService {
         Student bean = new Student();
         BeanUtils.copyProperties(vO, bean);
         bean = studentRepository.save(bean);
+        if(bean.getEmail() != null){
+            StudentEventObj studentEventObj = new StudentEventObj();
+            studentEventObj.setStudentId(bean.getStudentId());
+            studentEventObj.setBirthday(bean.getBirthday());
+            studentEventObj.setAddress(bean.getAddress());
+            studentEventObj.setEmail(bean.getEmail());
+            studentEventObj.setName(bean.getName());
+            studentEventObj.setFatherName(bean.getFatherName());
+            studentEventObj.setPhone(bean.getPhone());
+            studentEventService.publishEvent(studentEventObj);
+        }
         return bean.getStudentId();
     }
 

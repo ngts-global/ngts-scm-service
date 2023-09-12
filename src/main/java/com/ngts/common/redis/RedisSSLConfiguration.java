@@ -67,7 +67,7 @@ public class RedisSSLConfiguration {
 
         return new LettuceConnectionFactory(redisStandaloneConfiguration, lettuceClientConfiguration);
     }
-    @Bean
+    @Bean(name = "customRedisTemplate")
     RedisTemplate< String, Object> redisTemplate() throws Exception {
         final RedisTemplate< String, Object> template = new RedisTemplate< String, Object>();
         template.setConnectionFactory(redisConnectionFactory());
@@ -79,7 +79,6 @@ public class RedisSSLConfiguration {
     }
     @Value("${redis.pubsub.topic}")
     private String redisPubSubTopic;
-
 
     @Bean
     public ChannelTopic topic() {
