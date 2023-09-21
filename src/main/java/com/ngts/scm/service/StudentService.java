@@ -1,9 +1,9 @@
 package com.ngts.scm.service;
 
-import com.ngts.common.redis.events.StudentEventObj;
-import com.ngts.common.redis.events.impl.StudentEventService;
 import com.ngts.scm.dto.StudentDTO;
 import com.ngts.scm.entity.Student;
+import com.ngts.scm.events.StudentEventObj;
+import com.ngts.scm.events.impl.StudentEventService;
 import com.ngts.scm.repository.StudentRepository;
 import com.ngts.scm.vo.StudentQueryVO;
 import com.ngts.scm.vo.StudentUpdateVO;

@@ -68,10 +68,15 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/ngts/scm/events" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.ngts.scm.events" />
       <recent name="com.ngts.common.redis.events" />
     </key>
   </component>
@@ -79,6 +84,7 @@
     <configuration name="SchoolManagementSystemApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.ngts.scm.SchoolManagementSystemApplication" />
       <module name="ngts-scm-service" />
+      <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.ngts.scm.*" />
@@ -105,5 +111,16 @@
       <updated>1694273686789</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/ngts/scm/events/impl/StudentEventServiceImpl.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

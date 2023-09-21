@@ -1,17 +1,16 @@
-package com.ngts.common.redis.events.impl;
+package com.ngts.scm.events.impl;
 
-import com.ngts.common.redis.events.StudentEventObj;
+import com.ngts.scm.events.StudentEventObj;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StudentEventServiceImpl implements StudentEventService{
+public class StudentEventServiceImpl implements StudentEventService {
 
     @Autowired
-    @Qualifier("customRedisTemplate")
+    //@Qualifier("pubsubRedisTemplate")
     private RedisTemplate<String, Object> redisTemplate;
 
     @Autowired

@@ -1,10 +1,9 @@
-package com.ngts.common.redis.events;
+package com.ngts.scm.events;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 
 @Data
