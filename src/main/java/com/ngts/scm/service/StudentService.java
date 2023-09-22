@@ -90,5 +90,13 @@ public class StudentService {
         return mapper.map(student, StudentDTO.class);
     }
 
+    public List<StudentDTO> getStudentsByEmail(StudentVO student){
 
+        return studentRepository
+                .findByEmail(student.getEmail())
+                .stream()
+                .map(this::mapToStudentDTO)
+                .collect(Collectors.toList());
+
+    }
 }
