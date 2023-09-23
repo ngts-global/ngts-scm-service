@@ -34,11 +34,11 @@ public class StudentController {
             List<StudentDTO> studentDTOList = studentService.getStudentsByEmail(vO);
            if(studentDTOList.isEmpty()) {
                studentService.save(vO).toString();
-               return ResponseEntity.badRequest().body(new MessageResponse("Student Id created in the System !"));
+               return ResponseEntity.ok().body(new MessageResponse("Student Id created in the System !"));
            }
         }catch (NoSuchElementException e){
             studentService.save(vO).toString();
-            return ResponseEntity.badRequest().body(new MessageResponse("Student Id created in the System !"));
+            return ResponseEntity.ok().body(new MessageResponse("Student Id created in the System !"));
         }
         return ResponseEntity.badRequest().body(new MessageResponse("Student record already  Found !"));
     }
