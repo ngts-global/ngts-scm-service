@@ -9,6 +9,8 @@ com/ngts/scm/repository/StudentRepository.class
 com/ngts/common/utils/EmailValidator.class
 com/ngts/common/func/pojo/RoleFunctionMapping.class
 com/ngts/common/e2e/EncryptionUtils.class
+com/ngts/scm/config/WebConfiguration$1.class
+com/ngts/scm/config/WebConfigProperties$Cors.class
 com/ngts/scm/service/StudentService.class
 com/ngts/scm/events/impl/StudentEventServiceImpl.class
 com/ngts/common/utils/ModelMapperConfig.class
@@ -24,6 +26,8 @@ com/ngts/scm/events/impl/StudentEventService.class
 com/ngts/common/constants/NgtsCommonConstants.class
 com/ngts/scm/vo/StudentQueryVO.class
 com/ngts/scm/vo/StudentUpdateVO.class
+com/ngts/scm/config/WebConfigProperties.class
 com/ngts/common/func/pojo/Functions.class
+com/ngts/scm/config/WebConfiguration.class
 com/ngts/common/func/pojo/RolesGroup.class
 com/ngts/common/redis/RedisSSLConfiguration.class
