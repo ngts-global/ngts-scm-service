@@ -1,4 +1,4 @@
-package com.ngts.scm.config;
+package com.ngts.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
