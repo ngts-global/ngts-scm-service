@@ -40,7 +40,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StudentUpdateVO'
+              $ref: '#/components/schemas/StudentCreateRequest'
         required: true
       responses:
         '200':
@@ -68,7 +68,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StudentVO'
+              $ref: '#/components/schemas/StudentCreateRequest'
         required: true
       responses:
         '200':
@@ -152,44 +152,6 @@ paths:
 
 components:
   schemas:
-    StudentVO:
-      required:
-        - address
-        - birthday
-        - bloodGroup
-        - classId
-        - dormitoryId
-        - dormitoryRoomNumber
-        - email
-        - fatherName
-        - motherName
-        - name
-        - password
-        - phone
-        - religion
-        - roll
-        - sex
-        - studentId
-        - transportId
-    StudentUpdateVO:
-      required:
-        - address
-        - birthday
-        - bloodGroup
-        - classId
-        - dormitoryId
-        - dormitoryRoomNumber
-        - email
-        - fatherName
-        - motherName
-        - name
-        - password
-        - phone
-        - religion
-        - roll
-        - sex
-        - studentId
-        - transportId
     SignupRequest:
       required:
         - email
@@ -215,12 +177,65 @@ components:
           minLength: 6
           type: string
     LoginRequest:
-        required:
-          - password
-          - username
-        type: object
-        properties:
-          username:
-            type: string
-          password:
-            type: string
+      required:
+        - password
+        - username
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    StudentCreateRequest:
+      required:
+        - address
+        - birthday
+        - bloodGroup
+        - classId
+        - dormitoryId
+        - dormitoryRoomNumber
+        - email
+        - fatherName
+        - motherName
+        - name
+        - password
+        - phone
+        - religion
+        - roll
+        - sex
+        - studentId
+        - transportId
+      properties:
+        name:
+          maxLength: 20
+          minLength: 3
+          type: string
+        email:
+          maxLength: 50
+          minLength: 0
+          type: string
+        fatherName:
+          maxLength: 50
+          minLength: 0
+          type: string
+        motherName:
+          maxLength: 50
+          minLength: 0
+          type: string
+        phone:
+          maxLength: 50
+          minLength: 0
+          type: string
+        sex:
+          maxLength: 50
+          minLength: 0
+          type: string
+        birthday:
+          maxLength: 50
+          minLength: 0
+          type: string
+        address:
+          maxLength: 50
+          minLength: 0
+          type: string
+      
