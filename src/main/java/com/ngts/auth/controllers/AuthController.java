@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 //@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
 @Slf4j
-@CrossOrigin(origins = "/**", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/auth/api")
 public class AuthController {

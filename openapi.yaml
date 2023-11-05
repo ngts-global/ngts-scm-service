@@ -238,4 +238,3 @@ components:
           maxLength: 50
           minLength: 0
           type: string
-      
