@@ -1,10 +1,10 @@
 openapi: 3.0.1
 info:
-  title: OpenAPI definition
+  title: OpenAPI definition for ngts - scm
   version: v0
 servers:
   - url: http://localhost:8080
-    description: Generated server url
+    description: opea api proxy for deploying in choreo
 paths:
   /scm/api/student/{id}:
     get:
@@ -89,6 +89,66 @@ paths:
             '*/*':
               schema:
                 type: object
+  /auth/api/signup:
+    post:
+      tags:
+        - auth-controller
+      operationId: registerUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /auth/api/signout:
+    post:
+      tags:
+        - auth-controller
+      operationId: logoutUser
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /auth/api/signin:
+    post:
+      tags:
+        - auth-controller
+      operationId: authenticateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /auth/api/regUsers:
+    get:
+      tags:
+        - auth-controller-to-get-all-user
+      operationId: getAllregisteredusers
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
 
 components:
   schemas:
@@ -130,3 +190,37 @@ components:
         - sex
         - studentId
         - transportId
+    SignupRequest:
+      required:
+        - email
+        - password
+        - username
+      type: object
+      properties:
+        username:
+          maxLength: 20
+          minLength: 3
+          type: string
+        email:
+          maxLength: 50
+          minLength: 0
+          type: string
+        role:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        password:
+          maxLength: 40
+          minLength: 6
+          type: string
+    LoginRequest:
+        required:
+          - password
+          - username
+        type: object
+        properties:
+          username:
+            type: string
+          password:
+            type: string

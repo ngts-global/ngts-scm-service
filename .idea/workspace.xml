@@ -82,12 +82,12 @@
   </component>
   <component name="RunManager">
     <configuration name="SchoolManagementSystemApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.ngts.scm.SchoolManagementSystemApplication" />
+      <option name="MAIN_CLASS_NAME" value="com.ngts.SchoolManagementSystemApplication" />
       <module name="ngts-scm-service" />
       <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ngts.scm.*" />
+          <option name="PATTERN" value="com.ngts.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>

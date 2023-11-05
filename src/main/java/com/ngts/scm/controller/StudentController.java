@@ -15,6 +15,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Validated
 @RestController
 @RequestMapping("/scm/api/student")
