@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.ngts.common.*","com.ngts.scm.*","com.ngts.common.*", "com.ngts.auth.*"})
+@ComponentScan(basePackages = {"com.ngts.chat1.*","com.ngts.common.*","com.ngts.scm.*","com.ngts.common.*", "com.ngts.auth.*"})
 public class SchoolManagementSystemApplication {
 
 	public static void main(String[] args) {
