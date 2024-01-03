@@ -149,6 +149,25 @@ paths:
             '*/*':
               schema:
                 type: object
+  /registration/{userName}:
+    get:
+      tags:
+        - chat-user-controller
+      operationId: getById_8
+      parameters:
+        - name: userName
+          in: path
+          required: true
+          schema:
+            type: string
+            format: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
 
 components:
   schemas:
