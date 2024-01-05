@@ -20,6 +20,10 @@ function connectToChat(userName) {
                 $('#userNameAppender_' + data.fromLogin).append('<span id="newMessage_' + data.fromLogin + '" style="color: red">+1</span>');
             }
         });
+         stompClient.subscribe("/users", function (response) {
+                    let data = JSON.parse(response.body);
+                     fetchAll();
+                });
     });
 }
 
@@ -28,6 +32,39 @@ function sendMsg(from, text) {
         fromLogin: from,
         message: text
     }));
+}
+
+
+function chatlogin(){
+ let userName = document.getElementById("userName").value;
+ let email = document.getElementById("fullname").value;
+ var jsonObjects = {email:email, username:userName};
+
+    $.ajax({
+              url: "/chat/login",
+              type: "POST",
+              dataType: 'text',
+              data: jsonObjects,
+              beforeSend: function(x) {
+                if (x && x.overrideMimeType) {
+                  x.overrideMimeType("application/json;charset=UTF-8");
+                }
+              },
+              success: function() {
+                    usernamePage.classList.add('hidden');
+                    chatPage.classList.remove('hidden');
+                    $('#loggedusername').html(userName);
+                    connectToChat(userName);
+                    fetchAll();
+              },
+              error: function (request, status, error) {
+                  alert("Error occurred");
+                    },
+              complete: function () {
+
+                 }
+
+    });
 }
 
 function registration() {
@@ -63,15 +100,18 @@ function fetchAll() {
         let users = response;
         let usersTemplateHTML = "";
         for (let i = 0; i < users.length; i++) {
-            usersTemplateHTML = usersTemplateHTML + '<a href="#" onclick="selectUser(\'' + users[i] + '\')"><li class="clearfix">\n' +
-                '                <img src="/imgs/icon.png" width="55px" height="55px" alt="avatar" />\n' +
-                '                <div class="about">\n' +
-                '                    <div id="userNameAppender_' + users[i] + '" class="name">' + users[i] + '</div>\n' +
-                '                    <div class="status">\n' +
-                '                        <i class="fa fa-circle offline"></i>\n' +
-                '                    </div>\n' +
-                '                </div>\n' +
-                '            </li></a>';
+            var loggedInUserName = $('#loggedusername').text();
+            if(loggedInUserName != users[i]){
+                        usersTemplateHTML = usersTemplateHTML + '<a href="#" onclick="selectUser(\'' + users[i] + '\')"><li class="clearfix">\n' +
+                            '                <img src="/imgs/icon.png" width="55px" height="55px" alt="avatar" />\n' +
+                            '                <div class="about">\n' +
+                            '                    <div id="userNameAppender_' + users[i] + '" class="name">' + users[i] + '</div>\n' +
+                            '                    <div class="status">\n' +
+                            '                        <i class="fa fa-circle offline"></i>\n' +
+                            '                    </div>\n' +
+                            '                </div>\n' +
+                            '            </li></a>';
+            }
         }
         $('#usersList').html(usersTemplateHTML);
     });

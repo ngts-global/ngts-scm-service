@@ -1,14 +1,14 @@
 package com.ngts.chat1.controller;
 
+import com.ngts.chat1.entity.ChatUser;
 import com.ngts.chat1.repository.UserStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import java.util.Set;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin
@@ -27,6 +27,24 @@ public class UsersController {
         }
         simpMessagingTemplate.convertAndSend("/users" , userName);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/chat/login")
+    public ResponseEntity<String> login(@Payload ChatUser chatUser) {
+        System.out.println("handling register user request: " + chatUser.getEmail());
+        try {
+            UserStorage.getInstance().setUser(chatUser.getUsername());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+        simpMessagingTemplate.convertAndSend("/users" , chatUser.getUsername());
+
+        UUID uuid = UUID.randomUUID();
+        String uniqueUserId = uuid.toString();
+
+        System.out.println("Session Id generated for the user " + uniqueUserId);
+
+        return ResponseEntity.ok().body(uniqueUserId);
     }
 
     @GetMapping("/fetchAllUsers")
