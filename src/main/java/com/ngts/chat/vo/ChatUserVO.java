@@ -1,6 +1,6 @@
-package com.ngts.chat1.entity;
+package com.ngts.chat.vo;
 
-public class ChatUser {
+public class ChatUserVO {
 
     private String email;
     private String username;

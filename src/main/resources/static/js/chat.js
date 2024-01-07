@@ -1,4 +1,7 @@
-const url = 'http://localhost:8080';
+const url = 'http://vmi240110.contaboserver.net:7070';
+const loginUrl = url+"/comm/chat/login";
+const fetchAllUsersUrl = url + "/comm/fetchAllUsers";
+
 let stompClient;
 let selectedUser;
 const usernamePage = document.querySelector('#username-page');
@@ -21,7 +24,8 @@ function connectToChat(userName) {
             }
         });
          stompClient.subscribe("/users", function (response) {
-                    let data = JSON.parse(response.body);
+                    // we can show who is online here
+                     console.log(response);
                      fetchAll();
                 });
     });
@@ -41,7 +45,7 @@ function chatlogin(){
  var jsonObjects = {email:email, username:userName};
 
     $.ajax({
-              url: "/chat/login",
+              url: loginUrl,
               type: "POST",
               dataType: 'text',
               data: jsonObjects,
@@ -50,15 +54,16 @@ function chatlogin(){
                   x.overrideMimeType("application/json;charset=UTF-8");
                 }
               },
-              success: function() {
+              success: function(response) {
                     usernamePage.classList.add('hidden');
                     chatPage.classList.remove('hidden');
                     $('#loggedusername').html(userName);
+                    console.log("Response " + response);
                     connectToChat(userName);
                     fetchAll();
               },
               error: function (request, status, error) {
-                  alert("Error occurred");
+                  alert("Error occurred -" + request.responseText);
                     },
               complete: function () {
 
@@ -96,7 +101,7 @@ function selectUser(userName) {
 }
 
 function fetchAll() {
-    $.get(url + "/fetchAllUsers", function (response) {
+    $.get(fetchAllUsersUrl, function (response) {
         let users = response;
         let usersTemplateHTML = "";
         for (let i = 0; i < users.length; i++) {

@@ -97,6 +97,5 @@ public class StudentService {
                 .stream()
                 .map(this::mapToStudentDTO)
                 .collect(Collectors.toList());
-
     }
 }

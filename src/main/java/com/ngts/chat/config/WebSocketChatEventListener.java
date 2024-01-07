@@ -1,4 +1,4 @@
-package com.ngts.chat1.config;
+package com.ngts.chat.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;

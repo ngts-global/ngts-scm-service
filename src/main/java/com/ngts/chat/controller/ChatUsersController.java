@@ -1,21 +1,27 @@
-package com.ngts.chat1.controller;
+package com.ngts.chat.controller;
 
-import com.ngts.chat1.entity.ChatUser;
-import com.ngts.chat1.repository.UserStorage;
+import com.ngts.chat.entity.ChatUserEntity;
+import com.ngts.chat.repository.UserStorage;
+import com.ngts.chat.service.ChatUsersService;
+import com.ngts.chat.vo.ChatUserVO;
+import com.ngts.chat.vo.UserResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import java.util.Set;
-import java.util.UUID;
 
 @RestController
-@CrossOrigin
-public class UsersController {
+@CrossOrigin(origins = "*")
+@RequestMapping("/comm")
+public class ChatUsersController {
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
+
+    @Autowired
+    private ChatUsersService chatUsersService;
 
     @GetMapping("/registration/{userName}")
     public ResponseEntity<Void> register(@PathVariable String userName) {
@@ -30,25 +36,31 @@ public class UsersController {
     }
 
     @PostMapping("/chat/login")
-    public ResponseEntity<String> login(@Payload ChatUser chatUser) {
+    public ResponseEntity<?> login(@Payload ChatUserVO chatUser) {
         System.out.println("handling register user request: " + chatUser.getEmail());
         try {
             UserStorage.getInstance().setUser(chatUser.getUsername());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            String errorMsg = e.getMessage();
+            return ResponseEntity.badRequest().body(errorMsg);
         }
-        simpMessagingTemplate.convertAndSend("/users" , chatUser.getUsername());
 
-        UUID uuid = UUID.randomUUID();
-        String uniqueUserId = uuid.toString();
+        ChatUserEntity responseUserObj = chatUsersService.saveUser(chatUser);
 
-        System.out.println("Session Id generated for the user " + uniqueUserId);
+        UserResponseVO userResponseVO = new UserResponseVO();
+        userResponseVO.setChatUserId(responseUserObj.getChatId());
+        userResponseVO.setUsername(chatUser.getUsername());
 
-        return ResponseEntity.ok().body(uniqueUserId);
+        simpMessagingTemplate.convertAndSend("/users" , userResponseVO);
+
+        System.out.println("Session Id generated for the user " + responseUserObj.getChatId());
+
+        return ResponseEntity.ok().body(userResponseVO);
     }
 
     @GetMapping("/fetchAllUsers")
     public Set<String> fetchAll() {
-        return UserStorage.getInstance().getUsers();
+           return UserStorage.getInstance().getUsers();
+
     }
 }

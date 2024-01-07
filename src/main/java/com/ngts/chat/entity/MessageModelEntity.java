@@ -1,6 +1,6 @@
-package com.ngts.chat1.entity;
+package com.ngts.chat.entity;
 
-public class MessageModel {
+public class MessageModelEntity {
 
     private String message;
     private String fromLogin;

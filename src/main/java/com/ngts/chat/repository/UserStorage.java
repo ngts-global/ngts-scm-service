@@ -1,4 +1,4 @@
-package com.ngts.chat1.repository;
+package com.ngts.chat.repository;
 
 import java.util.HashSet;
 import java.util.Set;

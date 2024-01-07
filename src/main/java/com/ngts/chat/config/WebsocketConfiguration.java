@@ -1,4 +1,4 @@
-package com.ngts.chat1.config;
+package com.ngts.chat.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -11,7 +11,11 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/chat").withSockJS();
+        registry.addEndpoint("/chat")
+                //.setAllowedOrigins("http://localhost:9090","http://vmi240110.contaboserver.net:7070/")
+                .setAllowedOriginPatterns("*") // This has to be corrected when we deploy it in to production
+                .withSockJS();
+
     }
 
     @Override
