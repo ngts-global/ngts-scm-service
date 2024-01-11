@@ -5,6 +5,16 @@ public class MessagesVO {
     private String message;
     private String fromLogin;
 
+    public String getMessaageId() {
+        return messaageId;
+    }
+
+    public void setMessaageId(String messaageId) {
+        this.messaageId = messaageId;
+    }
+
+    private String messaageId;
+
     public String getMessage() {
         return message;
     }

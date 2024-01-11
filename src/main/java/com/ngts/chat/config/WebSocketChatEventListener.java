@@ -17,6 +17,7 @@ public class WebSocketChatEventListener {
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectedEvent event) {
         System.out.println("Received a new web socket connection");
+        System.out.println("Session ID " + event.getMessage().getHeaders().get("simpSessionId"));
     }
 
     @EventListener

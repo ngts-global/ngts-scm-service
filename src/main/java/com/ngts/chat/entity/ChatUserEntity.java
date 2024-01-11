@@ -41,6 +41,4 @@ public class ChatUserEntity {
         this.username = username;
     }
 
-
-
 }

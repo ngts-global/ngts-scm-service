@@ -1,102 +1,156 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ngts messenger</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communicator</title>
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/handlebars.min.js"></script>
+    <script src="js/lib/list.min.js"></script>
     <!--    libs for stomp and sockjs-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <!--    end libs for stomp and sockjs-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"
-          type="text/css">
-    <link href="css/style.css" rel="stylesheet">
+    <script src="js/lib/sockjs.js"></script>
+    <script src="js/lib/stomp.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="js/chat.js"></script>
+    <link href="css/lib/media.css" rel="stylesheet">
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+</style>
 <body>
 
 <div class="user-form" id="username-page">
     <h2>Ngts communicator</h2>
 
-        <label for="userName">Email</label>
-        <input type="text" id="userName" name="nickname" required>
-        <label for="fullname">Display Name:</label>
-        <input type="text" id="fullname" name="realname" required>
-        <button onclick="chatlogin()">Enter Chatroom</button>
-        <!-- <button type="submit">Enter Chatroom</button> -->
+    <div class="content-chat mt-20">
+        <div class="message-user-send">
+            <input type="text" id="email" placeholder="Email">
+        </div>
+        <div class="message-user-send">
+            <input type="text" id ="displayname" placeholder="Display Name">
+        </div>
+        <button type="button" onclick="chatlogin()">
+            <i class="fa-solid fa-paper-plane">connect</i>
+        </button>
+    </div>
 </div>
 
-<div class="container clearfix hidden" id="chat-page">
-    <div class="people-list" id="people-list">
-        <div class="search hidden">
-            <input id="userName1" placeholder="search" type="text"/>
-            <button onclick="registration()">Enter the chat</button>
-            <button onclick="fetchAll()">Refresh</button>
+<div id="idchatpage" class="content-chat mt-20 hidden" >
+    <div class="content-chat-user">
+        <div class="head-search-chat">
+            <h4 class="text-center">Search</h4>
         </div>
-        <div class="people-list about">
-            <h2><div id="loggedusername"/></h2>
+
+        <div class="search-user mt-30">
+            <input id="search-input" type="text" placeholder="Search..." name="search" class="search">
+            <span>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
         </div>
-        <ul class="list" id="usersList">
-        </ul>
+
+        <div id="iduserslist" class="list-search-user-chat mt-20">
+
+            <div class="user-chat" data-username="Maria Dennis1">
+                <div class="user-chat-img">
+                    <img src="/imgs/chat-user.jpeg" alt="">
+                    <div class="offline"></div>
+                </div>
+
+                <div class="user-chat-text">
+                    <p class="mt-0 mb-0"><strong>Maria Dennis</strong></p>
+                    <small>Hi, how are you?</small>
+                </div>
+            </div>
+
+        </div>
     </div>
 
-    <div class="chat">
-        <div class="chat-header clearfix">
-            <img alt="avatar" height="55px"
-                 src="/imgs/icon.png"
-                 width="55px"/>
-            <div class="chat-about">
-                <div class="chat-with" id="selectedUserId"></div>
-                <div class="chat-num-messages"></div>
+
+    <div id = "idchathistory" class="content-chat-message-user" data-username="Maria Dennis">
+        <div id="idselecteduser">
+            <div  class="head-chat-message-user">
+                <img src="/imgs/chat-user.jpeg" alt="">
+                <div class="message-user-profile">
+                    <p class="mt-0 mb-0 text-white"><strong>Maria Dennis</strong></p>
+                    <small class="text-white"><p class="offline  mt-0 mb-0"></p>Offline</small>
+                </div>
             </div>
-            <i class="fa fa-star"></i>
-        </div> <!-- end chat-header -->
+        </div>
+        <div id="idchatmessages" class="body-chat-message-user">
 
-        <div class="chat-history">
-            <ul>
-            </ul>
-
-        </div> <!-- end chat-history -->
-
-        <div class="chat-message clearfix">
-            <textarea id="message-to-send" name="message-to-send" placeholder="Type your message" rows="3"></textarea>
-
-            <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
-            <i class="fa fa-file-image-o"></i>
-
-            <button id="sendBtn">Send</button>
-
-        </div> <!-- end chat-message -->
-
-    </div> <!-- end chat -->
-
-</div> <!-- end container -->
+        </div>
+        <div class="footer-chat-message-user">
+            <div class="message-user-send">
+                <input type="text" placeholder="Aa">
+            </div>
+            <button type="button" onclick="sendMsg()">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
+</body>
 
 <script id="message-template" type="text/x-handlebars-template">
-    <li class="clearfix">
-        <div class="message-data align-right">
-            <span class="message-data-time">{{time}}, Today</span> &nbsp; &nbsp;
-            <span class="message-data-name">You</span> <i class="fa fa-circle me"></i>
+    <div class="message-user-left">
+        <div class="message-user-left-img">
+            <img src="/imgs/chat-user.jpeg" alt="">
+            <p class="mt-0 mb-0"><strong>{{}}</strong></p>
+            <small>{{time}}</small>
         </div>
-        <div class="message other-message float-right">
-            {{messageOutput}}
+        <div class="message-user-left-text">
+            <strong>{{message}}</strong>
         </div>
-    </li>
+    </div>
 </script>
 
 <script id="message-response-template" type="text/x-handlebars-template">
-    <li>
-        <div class="message-data">
-            <span class="message-data-name"><i class="fa fa-circle online"></i> {{userName}}</span>
-            <span class="message-data-time">{{time}}, Today</span>
+    <div class="message-user-right">
+        <div class="message-user-right-img">
+            <p class="mt-0 mb-0"><strong>{{from}}</strong></p>
+            <small>{{time}}</small>
+            <img src="/imgs/chat-user.jpeg" alt="">
         </div>
-        <div class="message my-message">
-            {{response}}
+        <div class="message-user-right-text">
+            <strong>{{message}}</strong>
         </div>
-    </li>
+    </div>
 </script>
 
-<script src="js/custom.js"></script>
-<script src="js/chat.js"></script>
-</body>
+<script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+            const userChats = document.querySelectorAll('.user-chat');
+            const chatMessages = document.querySelectorAll('.content-chat-message-user');
+
+            userChats.forEach((userChat) => {
+                userChat.addEventListener('click', () => {
+                    const selectedUsername = userChat.getAttribute('data-username');
+
+                    chatMessages.forEach((chatMessage) => {
+                        const messageUsername = chatMessage.getAttribute('data-username');
+
+                        if (messageUsername === selectedUsername) {
+                            chatMessage.classList.add('active');
+                        } else {
+                            chatMessage.classList.remove('active');
+                        }
+                    });
+
+                    userChats.forEach((chat) => {
+                        chat.classList.remove('active');
+                    });
+                    userChat.classList.add('active');
+                });
+            });
+
+            // Activar el primer elemento user-chat inicialmente
+            userChats[0].classList.add('active');
+            chatMessages[0].classList.add('active');
+        });
+    $('#idchatpage').hide();
+    </script>
+
 </html>

@@ -1,11 +1,12 @@
-const url = 'http://vmi240110.contaboserver.net:7070';
+const url = 'http://localhost:8080';
 const loginUrl = url+"/comm/chat/login";
 const fetchAllUsersUrl = url + "/comm/fetchAllUsers";
 
 let stompClient;
 let selectedUser;
 const usernamePage = document.querySelector('#username-page');
-const chatPage = document.querySelector('#chat-page');
+const chatPage = document.querySelector('#idchatpage');
+
 let newMessages = new Map();
 
 function connectToChat(userName) {
@@ -40,8 +41,9 @@ function sendMsg(from, text) {
 
 
 function chatlogin(){
- let userName = document.getElementById("userName").value;
- let email = document.getElementById("fullname").value;
+ let userName = document.getElementById("email").value;
+ let email = document.getElementById("displayname").value;
+
  var jsonObjects = {email:email, username:userName};
 
     $.ajax({
@@ -55,9 +57,9 @@ function chatlogin(){
                 }
               },
               success: function(response) {
-                    usernamePage.classList.add('hidden');
-                    chatPage.classList.remove('hidden');
-                    $('#loggedusername').html(userName);
+                     $('#username-page').hide();
+                     $('#idchatpage').show();
+                    //$('#loggedusername').html(userName);
                     console.log("Response " + response);
                     connectToChat(userName);
                     fetchAll();
@@ -68,56 +70,80 @@ function chatlogin(){
               complete: function () {
 
                  }
-
     });
 }
 
-function registration() {
-    let userName = document.getElementById("userName").value;
-    $.get(url + "/registration/" + userName, function (response) {
-        usernamePage.classList.add('hidden');
-        chatPage.classList.remove('hidden');
-        $('#loggedusername').html(userName);
-        connectToChat(userName);
-        fetchAll();
-    }).fail(function (error) {
-        if (error.status === 400) {
-            alert("Login is already busy!")
-        }
-    })
-}
 
 function selectUser(userName) {
-    console.log("selecting users: " + userName);
-    selectedUser = userName;
-    let isNew = document.getElementById("newMessage_" + userName) !== null;
+    var name = $(userName).attr('data-username');
+    console.log("selecting users: " + name);
+    selectedUser = name;
+
+    /*let isNew = document.getElementById("newMessage_" + userName) !== null;
     if (isNew) {
         let element = document.getElementById("newMessage_" + userName);
         element.parentNode.removeChild(element);
         render(newMessages.get(userName), userName);
-    }
-    $('#selectedUserId').html('');
-    $('#selectedUserId').append('Chat with ' + userName);
+    } */
+   // userName.classList.add('active');
+    updateChatWithUserDetails(selectedUser);
+    highlightselectedUser(selectedUser);
 }
+
+function highlightselectedUser(selectedUser){
+            const userChats = document.querySelectorAll('.user-chat');
+            const chatMessages = document.querySelectorAll('.content-chat-message-user');
+
+            userChats.forEach((userChat) => {
+
+                const selectedUsername = userChat.getAttribute('data-username');
+                if(selectedUser == selectedUsername){
+                    userChat.classList.add('active');
+                }else {
+                     userChat.classList.remove('active');
+                }
+
+            });
+
+}
+
+function updateChatWithUserDetails(selectedUser){
+
+  let usersTemplateHTML = "";
+    usersTemplateHTML = usersTemplateHTML +  '<div class=\"head-chat-message-user\">'+
+                '<img src=\"/imgs/chat-user.jpeg\" alt=\"\">'+
+                '<div class=\"message-user-profile\">'+
+                    '<p class=\"mt-0 mb-0 text-white\"><strong>'+selectedUser+'</strong></p>'+
+                    '<small class=\"text-white\"><p class=\"offline  mt-0 mb-0\"></p>Offline</small>'+
+                '</div>'+
+            '</div>'
+    $('#idselecteduser').html(usersTemplateHTML);
+}
+
 
 function fetchAll() {
     $.get(fetchAllUsersUrl, function (response) {
         let users = response;
         let usersTemplateHTML = "";
         for (let i = 0; i < users.length; i++) {
-            var loggedInUserName = $('#loggedusername').text();
-            if(loggedInUserName != users[i]){
-                        usersTemplateHTML = usersTemplateHTML + '<a href="#" onclick="selectUser(\'' + users[i] + '\')"><li class="clearfix">\n' +
-                            '                <img src="/imgs/icon.png" width="55px" height="55px" alt="avatar" />\n' +
-                            '                <div class="about">\n' +
-                            '                    <div id="userNameAppender_' + users[i] + '" class="name">' + users[i] + '</div>\n' +
-                            '                    <div class="status">\n' +
-                            '                        <i class="fa fa-circle offline"></i>\n' +
-                            '                    </div>\n' +
-                            '                </div>\n' +
-                            '            </li></a>';
+            let userName = document.getElementById("email").value;
+            if(userName != users[i].username){
+            console.log("Response " + users[i]);
+
+                usersTemplateHTML = usersTemplateHTML + '<div class=\"user-chat\" onClick=\"selectUser(this)\" data-username=\"'+users[i].username+'\">' +
+                   ' <div class=\"user-chat-img\">'+
+                    '   <img src=\"/imgs/chat-user.jpeg\" alt=\"\">' +
+                      '  <div class=\"offline\"></div>'+
+                    '</div>'+
+                    '<div class=\"user-chat-text\">'+
+                        '<p class=\"mt-0 mb-0\"><strong>'+users[i].username+'</strong></p>'+
+                        '<small>offline / online</small>'+
+                    '</div>'+
+                '</div>'
+
             }
         }
-        $('#usersList').html(usersTemplateHTML);
+
+        $('#iduserslist').html(usersTemplateHTML);
     });
 }
