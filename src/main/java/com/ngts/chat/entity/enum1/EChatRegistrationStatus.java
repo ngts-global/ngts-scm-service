@@ -1,4 +1,4 @@
-package com.ngts.chat.entity;
+package com.ngts.chat.entity.enum1;
 
 public enum EChatRegistrationStatus {
     APPROVED,

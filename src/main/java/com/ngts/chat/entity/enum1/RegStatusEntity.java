@@ -1,9 +1,10 @@
-package com.ngts.chat.entity;
+package com.ngts.chat.entity.enum1;
+
 import jakarta.persistence.*;
 
 
 @Entity
-@Table(name = "chat_reg_status")
+@Table(name = "chat_user_reg_status")
 public class RegStatusEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

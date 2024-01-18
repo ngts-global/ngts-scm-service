@@ -2,7 +2,6 @@ package com.ngts.auth.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.io.Serializable;
 
 @Data
