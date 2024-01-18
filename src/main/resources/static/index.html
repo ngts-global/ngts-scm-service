@@ -11,7 +11,12 @@
     <script src="js/lib/stomp.min.js"></script>
     <script src="js/custom.js"></script>
     <script src="js/chat.js"></script>
-    <link href="css/lib/media.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="js/lib/store.legacy.min.js"></script>
+    <script src="js/lib/jquery-ui.js"></script>
+    <link href="css/media.css" rel="stylesheet">
+    <link href="css/lib/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/lib/font-awesome.css" >
 </head>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
@@ -20,140 +25,134 @@
 <body>
 
 
-<div class="user-form" id="username-page">
-    <h2>Ngts communicator</h2>
-    <div id="username-page">
-        <div class="module form-module">
-            <div class="toggle">
-                <i class="fa fa-times fa-pencil"></i>
-                <div class="tooltip">Click Me</div>
-            </div>
-            <div class="form">
-                <h2>Login to your account</h2>
-                <form>
-                    <div class="contchat">
-                        <div class="message-user-send">
-                            <input type="text" id="email" placeholder="Email" required>
-                        </div>
-                        <!-- <input type="text" placeholder="Username" required/> -->
-                        <div class="message-user-send">
-                            <input type="text" id ="displayname" placeholder="Username">
-                        </div>
-                        <!-- <input type="password" placeholder="Password" required/> -->
-                        <button type="button" onclick="chatlogin()">
-                            <i class= "fa-solid fa-paper-plane">Login</i>
-                        </button>
+    <div class="user-form" id="username-page">
+        <h2>Ngts communicator</h2>
+                <div id="username-page">
+                <div class="module form-module">
+                <div class="toggle">
+                        <i class="fa fa-times fa-pencil"></i>
+                        <div class="tooltip">Click Me</div>
                     </div>
-                </form>
-            </div>
-            <div class="form">
-                <h2>Create an account</h2>
-                <form>
-                    <input type="text" placeholder="Username" required/>
-                    <input type="password" placeholder="Password" required/>
-                    <input type="email" placeholder="Email Address" required/>
-                    <input type="tel" placeholder="Mobile Number" maxlength="10" required/>
-                    <button>Register</button>
-                </form>
-            </div>
-            <div class="cta"><a href="#">Forgot your password?</a></div>
-        </div>
-    </div>
+                    <div class="form">
+                        <h2>Login to your account</h2>
+                        <form>
+                            <div class="contchat">
+                                <div class="message-user-send">
+                                    <input type="text" id="email" placeholder="Email" required>
+                                </div>
+                            <!-- <input type="text" placeholder="Username" required/> -->
+                            <div class="message-user-send">
+                                <input type="password" id="loginpassword"  placeholder="Password" required/>
+                            </div>
+                            <!-- <input type="password" placeholder="Password" required/> -->
+                            <button type="button" onclick="chatlogin()">
+                            <i class= "fa-solid fa-paper-plane">Login</i>
+                            </button>
+                        </div>
+                        </form>
+                    </div>
+                    <div class="form">
+                        <h2>Create an account</h2>
+                        <form id="regform">
+                            <input type="text" id="username"  placeholder="Username" required/>
+                            <input type="email" id="regemail" placeholder="Email Address" required/>
+                            <input type="password" id="password"  placeholder="Password" required/>
+                            <!--<input type="tel" placeholder="Mobile Number" maxlength="10" required/>-->
+                            <button type="button" onclick="register()">
+                                <i class= "fa-solid fa-paper-plane">Register</i>
+                                </button>
+                        </form>
+                    </div>
+                    <div class="cta"><a href="#">Forgot your password?</a></div>
+                </div>
+                </div>
+                </div>
 
-</div>
-<!--
-<div class="user-form" id="username-page">
-<h2>Ngts communicator</h2>
-   <div class="content-chat mt-20">
-            <div class="message-user-send">
-                <input type="text" id="email" placeholder="Email">
+    <div id="idchatpage" class="content-chat mt-20 hidden" >
+        <div class="content-chat-user">
+            <div class="head-search-chat">
+                <h4 class="text-center" id="loggedInUserName">name...</h4>
             </div>
-             <div class="message-user-send">
-                <input type="text" id ="displayname" placeholder="Display Name">
-            </div>
-            <button type="button" onclick="chatlogin()">
-                <i class="fa-solid fa-paper-plane">Connect</i>
-            </button>
-        </div>
-</div>
--->
-
-<div id="idchatpage" class="content-chat mt-20 hidden" >
-    <div class="content-chat-user">
-        <div class="head-search-chat">
-            <h4 class="text-center">Search</h4>
-        </div>
-        <div class="search-user mt-30">
-            <input id="search-input" type="text" placeholder="Search..." name="search" class="search">
-            <span>
+            <div class="search-user mt-30">
+                <input id="search-input" type="text" placeholder="Search..." name="search" class="search">
+                <span>
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </span>
-        </div>
+            </div>
 
-        <div id="iduserslist" class="list-search-user-chat mt-20"><!-- This is dummy-->
-            <div class="user-chat" data-username="Maria Dennis1">
-                <div class="user-chat-img">
-                    <img src="/imgs/chat-user.jpeg" alt="">
-                    <div class="offline"></div>
+            <div id="iduserslist" class="list-search-user-chat mt-20"><!-- This is dummy-->
+                <div class="user-chat" data-username="Maria Dennis1">
+                    <div class="user-chat-img">
+                        <img src="/imgs/chat-user.jpeg" alt="">
+                        <div class="offline"></div>
+                    </div>
+                    <div class="user-chat-text">
+                        <p class="mt-0 mb-0"><strong></strong></p>
+                        <small></small>
+                    </div>
                 </div>
-                <div class="user-chat-text">
-                    <p class="mt-0 mb-0"><strong>Maria Dennis</strong></p>
-                    <small>status</small>
+            </div>
+        </div>
+               
+        <div id = "idchathistory" class="content-chat-message-user" data-username="Maria Dennis">
+            <div id="idselecteduser">
+                    <div  class="head-chat-message-user">
+                        <img src="/imgs/chat-user.jpeg" alt="">
+                        <div class="message-user-profile">
+                            <p class="mt-0 mb-0 text-white"><strong>chat user</strong></p>
+                            <small class="text-white"><p class="offline  mt-0 mb-0"></p>status</small>
+                        </div>
+                    </div>
+            </div>
+
+            <div id="idchatmessages" class="body-chat-message-user">
+                
+            </div>
+            
+            <div class="footer-chat-message-user">
+                <div class="message-user-send">
+                    <input type="text" id="idchattxt" placeholder="Type to send message">
                 </div>
+                <button type="button" onclick="sendMessage()">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
             </div>
         </div>
     </div>
 
-    <div id = "idchathistory" class="content-chat-message-user" data-username="Maria Dennis">
-        <div id="idselecteduser">
-            <div  class="head-chat-message-user">
-                <img src="/imgs/chat-user.jpeg" alt="">
-                <div class="message-user-profile">
-                    <p class="mt-0 mb-0 text-white"><strong>Maria Dennis</strong></p>
-                    <small class="text-white"><p class="offline  mt-0 mb-0"></p>Offline</small>
-                </div>
-            </div>
-        </div>
+    <div id="errDialog" title="NGTS comm"> 
+        Error message  
+    </div> 
 
-        <div id="idchatmessages" class="body-chat-message-user">
-
-        </div>
-
-        <div class="footer-chat-message-user">
-            <div class="message-user-send">
-                <input type="text" id="idchattxt" placeholder="Aa">
-            </div>
-            <button type="button" onclick="sendMessage()">
-                <i class="fa-solid fa-paper-plane"></i>
-            </button>
-        </div>
-    </div>
-</div>
 </body>
 
+<script> 
+   
+</script> 
+
 <script id="message-template" type="text/x-handlebars-template">
-    <div class="message-user-left">
-        <div class="message-user-left-img">
-            <img src="/imgs/chat-user.jpeg" alt="">
-            <p class="mt-0 mb-0"><strong>{{}}</strong></p>
-            <small>{{time}}</small>
-        </div>
-        <div class="message-user-left-text">
-            <strong>{{message}}</strong>
-        </div>
-    </div>
+     <div class="message-user-left">
+                    <div class="message-user-left-img">
+                        <img src="/imgs/chat-user.jpeg" alt="">
+                        <p class="mt-0 mb-0"><strong>{{}}</strong></p>
+                        <small>{{time}}</small>
+                    </div>
+                    <div class="message-user-left-text">
+                        <strong>{{message}}</strong>
+                    </div>
+                </div>
 </script>
 
 <script id="message-response-template" type="text/x-handlebars-template">
     <div class="message-user-right">
-        <div class="message-user-right-img">
-            <p class="mt-0 mb-0"><strong>{{from}}</strong></p>
-            <small>{{time}}</small>
-            <img src="/imgs/chat-user.jpeg" alt="">
-        </div>
-        <div class="message-user-right-text">
-            <strong>{{message}}</strong>
-        </div>
+                    <div class="message-user-right-img">
+                        <p class="mt-0 mb-0"><strong>{{from}}</strong></p>
+                        <small>{{time}}</small>
+                        <img src="/imgs/chat-user.jpeg" alt="">
+                    </div>
+                    <div class="message-user-right-text">
+                        <strong>{{message}}</strong>
+                    </div>
     </div>
 </script>
 
@@ -161,10 +160,31 @@
 
      // Toggle Function
 $(document).ready(function(){
+
+    $(function () { 
+        $("#errDialog").dialog({ 
+            autoOpen: false, 
+            classes: { 
+                    "ui-dialog": "highlight" 
+                },
+            buttons: [ 
+                { 
+                    text: "Ok", 
+                    click: function () { 
+                        $(this).dialog("close"); 
+                    } 
+                } 
+            ] 
+        }); 
+        /*$("#loginBtn").click(function () { 
+            $("#errDialog").dialog("open"); 
+        }); */
+    }); 
+ 
       $('.toggle').click(function(){
         // Switches the Icon
         $(this).children('i').toggleClass('fa-pencil');
-        // Switches the forms
+        // Switches the forms  
         $('.form').animate({
           height: "toggle",
           'padding-top': 'toggle',
@@ -204,6 +224,7 @@ $(document).ready(function(){
             chatMessages[0].classList.add('active');
         });
     $('#idchatpage').hide();
+    $('#idchattxt').attr('disabled', 'disabled');
     </script>
 
 </html>

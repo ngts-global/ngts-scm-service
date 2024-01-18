@@ -2,8 +2,6 @@ package com.ngts.chat.controller;
 
 import com.ngts.auth.jwt.AuthJwtUtils;
 import com.ngts.auth.payload.response.MessageResponse;
-import com.ngts.chat.entity.ChatUserEntity;
-import com.ngts.chat.repository.UserStorage;
 import com.ngts.chat.service.ChatUsersService;
 import com.ngts.chat.vo.ChatRegisterationVO;
 import com.ngts.chat.vo.ChatUserVO;
@@ -19,9 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "*")

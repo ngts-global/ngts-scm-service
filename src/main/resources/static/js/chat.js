@@ -1,19 +1,40 @@
-const url = 'http://vmi240110.contaboserver.net:7070';
+const url = 'http://localhost:7070';
+const chatUrl = url + '/chat';
 const loginUrl = url+"/comm/chat/login";
-const fetchAllUsersUrl = url + "/comm/fetchAllUsers";
+const registrationUrl = url+"/comm/chat/register";
+const fetchAllUsersUrl = url + "/comm/chat/fetchAllUsers";
+
+const LOGGED_IN_USERNAME = "LOGGED_IN_USERNAME";
+const LOGGED_IN_CHATID = "LOGGED_IN_CHATID";
 
 let stompClient;
 let selectedUser;
 const usernamePage = document.querySelector('#username-page');
 const chatPage = document.querySelector('#idchatpage');
-let loggedInUserUUID ;
+
 let selectedUserUUID;
 
 let newMessages = new Map();
 
+function getCookie(cookieName){
+    var cookieArray = document.cookie.split(';');
+    for(var i=0; i<cookieArray.length; i++){
+      var cookie = cookieArray[i];
+      while (cookie.charAt(0)==' '){
+        cookie = cookie.substring(1);
+      }
+      cookieHalves = cookie.split('=');
+      if(cookieHalves[0]== cookieName){
+        return cookieHalves[1];
+      }
+    }
+    return "";
+  }
+
+
 function connectToChat(userName) {
     console.log("connecting to chat...")
-    let socket = new SockJS(url + '/chat');
+    let socket = new SockJS(chatUrl);
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log("connected to: " + frame);
@@ -35,19 +56,28 @@ function connectToChat(userName) {
     });
 }
 
-
 function sendMsg() {
     //let loggedInUserName = document.getElementById("email").value;
     let typedMsg = document.getElementById("idchattxt").value;
     stompClient.send("/app/chat/" + selectedUserUUID, {}, JSON.stringify({
-        fromLogin: loggedInUserUUID,
+        fromLogin: store.get(LOGGED_IN_CHATID),
         message: typedMsg
     }));
 }
+function convertTime(time){
+
+        var d = new Date(null)
+        d.setMilliseconds(time)
+        return d.toLocaleTimeString("en-US")
+
+}
+
+
 
 function receiveMessage(receivedMsg){
-    var from = receivedMsg.fromLogin;
+    var from = receivedMsg.fromName;
     var recMsg = receivedMsg.message;
+    var recTime = convertTime(receivedMsg.receivedTime);
 
     const chatMessages = document.getElementById('idchatmessages');
 
@@ -56,14 +86,14 @@ function receiveMessage(receivedMsg){
         message.innerHTML = `<div class="message-user-right">
             <div class="message-user-right-img">
                 <img src="/imgs/chat-user.jpeg" alt="">
-                <p class="mt-0 mb-0"><strong>Maria Dennis</strong></p>
-                <small>mié 17:59</small>
+                <p class="mt-0 mb-0"><strong>${from}</strong></p>
+                <small>${recTime}</small>
             </div>
             <div class="message-user-right-text">
                 <strong>${recMsg}</strong>
             </div>
         </div>`;
-
+        
         chatMessages.appendChild(message);
         document.getElementById("idchattxt").value = '';
         chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to the bottom
@@ -73,7 +103,7 @@ function receiveMessage(receivedMsg){
 function sendMessage() {
     const messageInput = document.getElementById("idchattxt").value;
     const chatMessages = document.getElementById('idchatmessages');
-    let displayname = document.getElementById("displayname").value
+    let displayname = store.get(LOGGED_IN_USERNAME);
     sendMsg(); // Sending msg to server
 
     if (messageInput.trim() !== '') {
@@ -88,7 +118,7 @@ function sendMessage() {
                 <strong>${messageInput}</strong>
             </div>
         </div>`;
-
+        
         chatMessages.appendChild(message);
         document.getElementById("idchattxt").value = '';
         chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to the bottom
@@ -96,10 +126,15 @@ function sendMessage() {
 }
 
 function chatlogin(){
- let userName = document.getElementById("email").value;
- let email = document.getElementById("displayname").value;
+ let email = document.getElementById("email").value;
+ let loginpassword = document.getElementById("loginpassword").value;
+ if(email=='' || loginpassword == ''){
+    $("#errDialog").dialog("open").html ( "Enter details" );
+    return;
+ }
 
- var jsonObjects = {email:email, username:userName};
+ var jsonObjects = {email:email, password:loginpassword};
+ console.log(store);
 
     $.ajax({
               url: loginUrl,
@@ -111,24 +146,77 @@ function chatlogin(){
                   x.overrideMimeType("application/json;charset=UTF-8");
                 }
               },
-              success: function(response) {
-                     $('#username-page').hide();
-                     $('#idchatpage').show();
-                    //$('#loggedusername').html(userName);
-                    loggedInUserUUID = JSON.parse(response).chatUserId;
-
-                    console.log("Response " + response);
-                    connectToChat(loggedInUserUUID);
-                    fetchAll();
+              success: function(response, textStatus, request){
+                    loginSuccessEvent(response, textStatus, request);
               },
               error: function (request, status, error) {
-                  alert("Error occurred -" + request.responseText);
-                    },
+                  if(request.responseText != null ){
+                    $("#errDialog").dialog("open").html ( JSON.parse(request.responseText).message);
+                    }
+                   else {
+                    $("#errDialog").dialog("open").html ( "Error making network call" );
+                    //alert("Error making network call");
+                    }
+                   },
               complete: function () {
 
                  }
-    });
+    }); 
 }
+
+function loginSuccessEvent(response, textStatus, request){
+    $('#username-page').hide();
+    $('#idchatpage').show();
+   //$('#loggedusername').html(userName);
+  // alert("success response " + request.getResponseHeader('Set-Cookie'));
+   var cookie = getCookie('Set-Cookie');
+  // alert("Cookie " + cookie);
+   var loggedInUserUUID = JSON.parse(response).chatUserId;
+   store.set(LOGGED_IN_USERNAME, JSON.parse(response).username);
+   store.set(LOGGED_IN_CHATID, loggedInUserUUID);
+   $("#loggedInUserName").html(store.get(LOGGED_IN_USERNAME));
+   console.log("Response " + response);
+   connectToChat(loggedInUserUUID);
+   fetchAll();
+}
+
+
+function register(){
+
+    let email = document.getElementById("regemail").value;
+    let userName = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+   
+       $.ajax({
+                 url: registrationUrl,
+                 type: "POST",
+                 "timeout": 0,
+                "contentType" : 'application/json',
+                "data": JSON.stringify({
+                    "email": email,
+                    "username": userName,
+                    "password": password,                   
+                }),
+                 beforeSend: function(x) {
+                   if (x && x.overrideMimeType) {
+                    x.overrideMimeType("application/json;charset=UTF-8");
+                   }
+                 },
+                 success: function(response, textStatus, request) {
+                    alert(" "+ JSON.parse(request.responseText).message);
+                 },
+                 error: function (request, status, error) {
+                    if(request.responseText != null )
+                        $("#errDialog").dialog("open").html ( JSON.parse(request.responseText).message);
+                    else {
+                        $("#errDialog").dialog("open").html ( "Error making network call" );
+                    }
+                       },
+                 complete: function () {
+   
+                    }
+       }); 
+   }
 
 
 function selectUser(selectedDiv) {
@@ -136,15 +224,9 @@ function selectUser(selectedDiv) {
     console.log("selecting users: " + name);
     selectedUser = name;
     selectedUserUUID = $(selectedDiv).attr('chatId');
-    /*let isNew = document.getElementById("newMessage_" + userName) !== null;
-    if (isNew) {
-        let element = document.getElementById("newMessage_" + userName);
-        element.parentNode.removeChild(element);
-        render(newMessages.get(userName), userName);
-    } */
-   // userName.classList.add('active');
     updateChatWithUserDetails(selectedUser);
     highlightselectedUser(selectedUser);
+    $('#idchattxt').removeAttr('disabled');
 }
 
 function highlightselectedUser(selectedUser){
@@ -158,8 +240,6 @@ function highlightselectedUser(selectedUser){
                      userChat.classList.remove('active');
                 }
             });
-
-
 }
 
 function updateChatWithUserDetails(selectedUser){
@@ -180,11 +260,11 @@ function fetchAll() {
         let users = response;
         let usersTemplateHTML = "";
         for (let i = 0; i < users.length; i++) {
-            let userName = document.getElementById("email").value;
-            if(userName != users[i].username){
+            let loggedInUserUUID = store.get(LOGGED_IN_CHATID);
+            if(loggedInUserUUID != users[i].chatUserId){
             console.log("Response " + users[i]);
 
-                usersTemplateHTML = usersTemplateHTML + '<div class=\"user-chat\" onClick=\"selectUser(this)\" chatId=\"'+users[i].chatId+'\" data-username=\"'+users[i].username+'\">' +
+                usersTemplateHTML = usersTemplateHTML + '<div class=\"user-chat\" onClick=\"selectUser(this)\" chatId=\"'+users[i].chatUserId+'\" data-username=\"'+users[i].username+'\">' +
                    ' <div class=\"user-chat-img\">'+
                     '   <img src=\"/imgs/chat-user.jpeg\" alt=\"\">' +
                       '  <div class=\"offline\"></div>'+
@@ -201,3 +281,7 @@ function fetchAll() {
         $('#iduserslist').html(usersTemplateHTML);
     });
 }
+
+
+
+
