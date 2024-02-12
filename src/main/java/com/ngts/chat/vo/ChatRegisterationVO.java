@@ -3,6 +3,7 @@ package com.ngts.chat.vo;
  import jakarta.validation.constraints.*;
 
 public class ChatRegisterationVO {
+
     @NotBlank
     @Size(min = 3, max = 20)
     private String username;

@@ -1,4 +1,5 @@
-const url = 'http://localhost:7070';
+//const url = 'https://vmi240110.contaboserver.net:7070';
+const url = 'http://localhost:6060';
 const chatUrl = url + '/chat';
 const loginUrl = url+"/comm/chat/login";
 const registrationUrl = url+"/comm/chat/register";
@@ -133,14 +134,15 @@ function chatlogin(){
     return;
  }
 
- var jsonObjects = {email:email, password:loginpassword};
- console.log(store);
-
     $.ajax({
               url: loginUrl,
               type: "POST",
-              dataType: 'text',
-              data: jsonObjects,
+              "timeout": 0,
+              "contentType" : 'application/json',
+              "data": JSON.stringify({
+                  "email": email,
+                  "password": loginpassword,
+              }),
               beforeSend: function(x) {
                 if (x && x.overrideMimeType) {
                   x.overrideMimeType("application/json;charset=UTF-8");
@@ -171,8 +173,8 @@ function loginSuccessEvent(response, textStatus, request){
   // alert("success response " + request.getResponseHeader('Set-Cookie'));
    var cookie = getCookie('Set-Cookie');
   // alert("Cookie " + cookie);
-   var loggedInUserUUID = JSON.parse(response).chatUserId;
-   store.set(LOGGED_IN_USERNAME, JSON.parse(response).username);
+   var loggedInUserUUID = response.chatUserId;
+   store.set(LOGGED_IN_USERNAME, response.username);
    store.set(LOGGED_IN_CHATID, loggedInUserUUID);
    $("#loggedInUserName").html(store.get(LOGGED_IN_USERNAME));
    console.log("Response " + response);

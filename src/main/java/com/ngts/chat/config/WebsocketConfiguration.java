@@ -19,6 +19,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 @EnableWebSocketMessageBroker
 public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer {
 
+    public static String className = WebsocketConfiguration.class.getName();
+
     @Autowired
     AuthJwtUtils jwtUtils;
 
@@ -39,15 +41,14 @@ public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
                 registry.setApplicationDestinationPrefixes("/app")
-                        .enableSimpleBroker("/topic", "/users");
+                        .enableSimpleBroker("/topic", "/users", "/channel");
     }
-
 
     @Component
     public static class MyTextHandler extends TextWebSocketHandler {
         public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
            // session.sendMessage(new TextMessage("hello world"));
-            System.out.println("Text handler ........");
+            System.out.println(className + " Text handler ........");
         }
     }
 
@@ -56,7 +57,7 @@ public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer 
         public void handleBinaryMessage(WebSocketSession session, BinaryMessage message) {
             try {
                 //session.sendMessage(new BinaryMessage("hello world".getBytes()));
-                System.out.println("Binary handler ........");
+                System.out.println(className + " Binary handler ........");
             } catch (Exception e) {
                 e.printStackTrace();
             }

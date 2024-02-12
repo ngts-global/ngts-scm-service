@@ -1,27 +1,14 @@
 package com.ngts.chat.service;
 
-import com.ngts.auth.entity.Roles;
-import com.ngts.auth.entity.UserRoles;
-import com.ngts.auth.entity.Users;
-import com.ngts.auth.entity.dto.UsersDTO;
-import com.ngts.auth.payload.response.UserInfoResponse;
-import com.ngts.chat.entity.MessageModelEntity;
 import com.ngts.chat.entity.enum1.EChatRegistrationStatus;
-import com.ngts.chat.vo.ChatRegisterationVO;
-import com.ngts.chat.vo.ChatUserVO;
-import com.ngts.chat.vo.MessageResponseVO;
-import com.ngts.chat.vo.UserResponseVO;
+import com.ngts.chat.vo.*;
 import com.ngts.scm.dto.StudentDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import com.ngts.chat.entity.ChatUserEntity;
 import com.ngts.chat.repository.ChatUserRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -96,5 +83,24 @@ public class ChatUsersService {
         ChatUserEntity chatUser = new ChatUserEntity();
         chatUser.setEmail(chatUserVO.getEmail());
         return null;
+    }
+
+    public HashMap<ChannelRegResponseVO, List<UserResponseVO>> getRegisteredChannels(){
+
+        HashMap<ChannelRegResponseVO, List<UserResponseVO>> channelList = new HashMap<>();
+
+        ChannelRegResponseVO responseVO  = new ChannelRegResponseVO();
+        responseVO.setChannelId(1000);
+        responseVO.setChannelName("ngts dev group");
+
+        List<UserResponseVO> channelMembers = findConnectedUsers();
+        channelList.put(responseVO, channelMembers);
+
+
+        ChannelRegResponseVO responseVO1  = new ChannelRegResponseVO();
+        responseVO1.setChannelId(2000);
+        responseVO1.setChannelName("biz group");
+        channelList.put(responseVO1, channelMembers);
+        return channelList;
     }
 }

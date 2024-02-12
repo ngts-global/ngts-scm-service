@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MessageController {
 
+    public static String className = MessageController.class.getName();
     @Autowired
     AuthJwtUtils jwtUtils;
 
@@ -24,7 +25,8 @@ public class MessageController {
     private SimpMessagingTemplate simpMessagingTemplate;
 
     @MessageMapping("/chat/{to}")
-    public void sendMessage(@DestinationVariable String to, MessageModelEntity message, SimpMessageHeaderAccessor simpMessageHeaderAccessor) {
+    public void sendMessage(@DestinationVariable String to,
+                            MessageModelEntity message, SimpMessageHeaderAccessor simpMessageHeaderAccessor) {
 
        MessageResponseVO messageResponseVOFrom = chatUsersService.findByChatId(message.getFromLogin());
        MessageResponseVO messageResponseVOTo = chatUsersService.findByChatId(to);
@@ -34,23 +36,25 @@ public class MessageController {
        responseVO.setFromLogin(message.getFromLogin());
        responseVO.setToName(messageResponseVOTo.getFromName());
        responseVO.setReceivedTime(String.valueOf(System.currentTimeMillis()));
+       responseVO.setMsgId(System.currentTimeMillis());
+        System.out.println("Sending message one to one ...");;
+       System.out.println(className + " handling send message :  From : " + message.getFromLogin() +  " to: " + to + " , Message: " + message + " Session ID: " + simpMessageHeaderAccessor.getSessionId());
+       System.out.println(className + " Destination  " + simpMessageHeaderAccessor.getDestination());
 
-        System.out.println("handling send message :  From : " + message.getFromLogin() +  " to: " + to + " , Message: " + message + " Session:" + simpMessageHeaderAccessor.getSessionId());
-        System.out.println("Session attributes " + simpMessageHeaderAccessor.getSessionAttributes());
+       //System.out.println(className +" subId " +  simpMessageHeaderAccessor.getSubscriptionId());
 
         simpMessagingTemplate.convertAndSend("/topic/messages/" + to, responseVO);
 
-        /*UserStorage.getInstance().getUsers().forEach(chatUserEntity -> {
-            if (chatUserEntity.getChatId().equalsIgnoreCase(to)) {
-                System.out.println("Publishing the message to " + to);
-
-            } else {
-                System.out.println(" User not found to publish the message");
-            }
-        }); */
-
     }
 
+    @MessageMapping("/channels/{from}/{channelId}")
+    public void sendGroupMessage(@DestinationVariable String from ,@DestinationVariable String channelId,
+                            MessageModelEntity message, SimpMessageHeaderAccessor simpMessageHeaderAccessor) {
+        System.out.println(className + " Sending messages to group .....");
+        System.out.println(className + " handling send message :  From : "
+                 + from + " , Channel ID : " + channelId + " , Session ID: " + simpMessageHeaderAccessor.getSessionId());
+        System.out.println(className + " Destination  " + simpMessageHeaderAccessor.getDestination());
 
+    }
 
   }

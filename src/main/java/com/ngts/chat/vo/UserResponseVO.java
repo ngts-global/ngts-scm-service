@@ -1,10 +1,14 @@
 package com.ngts.chat.vo;
 
+import java.util.HashMap;
+import java.util.List;
+
 public class UserResponseVO {
 
     private String chatUserId;
     private String username;
     private String email;
+    private HashMap<ChannelRegResponseVO, List<UserResponseVO>> channels;
 
     public String getEmail() {
         return email;
@@ -28,5 +32,13 @@ public class UserResponseVO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public HashMap<ChannelRegResponseVO, List<UserResponseVO>> getChannels() {
+        return channels;
+    }
+
+    public void setChannels(HashMap<ChannelRegResponseVO, List<UserResponseVO>> channels) {
+        this.channels = channels;
     }
 }
