@@ -10,10 +10,15 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.ngts.chat.*","com.ngts.common.*","com.ngts.scm.*","com.ngts.common.*", "com.ngts.auth.*"})
+@ComponentScan(basePackages = {"com.ngts.chat.*",
+		                       "com.ngts.common.*",
+		                       "com.ngts.scm.*",
+					           "com.ngts.common.*",
+		                       "com.ngts.auth.*",
+							   "com.ngts.integration.*"
+					           })
 public class SchoolManagementSystemApplication {
 
-	//HTTP port
 	@Value("${http.port}")
 	private int httpPort;
 

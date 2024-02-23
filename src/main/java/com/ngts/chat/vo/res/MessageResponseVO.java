@@ -1,4 +1,4 @@
-package com.ngts.chat.vo;
+package com.ngts.chat.vo.res;
 
 public class MessageResponseVO {
 

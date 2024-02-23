@@ -1,4 +1,4 @@
-package com.ngts.chat.vo;
+package com.ngts.chat.vo.res;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

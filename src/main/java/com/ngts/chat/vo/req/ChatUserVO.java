@@ -1,4 +1,4 @@
-package com.ngts.chat.vo;
+package com.ngts.chat.vo.req;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -31,5 +31,11 @@ public class ChatUserVO {
         this.email = email;
     }
 
-
+    @Override
+    public String toString() {
+        return "ChatUserVO{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

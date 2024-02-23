@@ -36,6 +36,7 @@ public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer 
                 .addInterceptors(new ChatRequestFilter())
                 //.setAllowedOrigins("http://localhost:9090","http://vmi240110.contaboserver.net:7070/")
                 .setAllowedOriginPatterns("*"); // This has to be corrected when we deploy it in to production
+
     }
 
     @Override

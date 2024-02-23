@@ -1,5 +1,5 @@
-//const url = 'https://vmi240110.contaboserver.net:7070';
-const url = 'http://localhost:6060';
+const url = 'https://vmi240110.contaboserver.net:7070';
+//const url = 'http://localhost:6060';
 const chatUrl = url + '/chat';
 const loginUrl = url+"/comm/chat/login";
 const registrationUrl = url+"/comm/chat/register";
@@ -42,11 +42,11 @@ function connectToChat(userName) {
         stompClient.subscribe("/topic/messages/" + userName, function (response) {
             let data = JSON.parse(response.body);
             receiveMessage(data);
-            if (selectedUser === data.fromLogin) {
-                render(data.message, data.fromLogin);
+            if (selectedUser === data.fromName) {
+                render(data.message, data.fromName);
             } else {
-                newMessages.set(data.fromLogin, data.message);
-                $('#userNameAppender_' + data.fromLogin).append('<span id="newMessage_' + data.fromLogin + '" style="color: red">+1</span>');
+                newMessages.set(data.fromName, data.msgTxt);
+                $('#userNameAppender_' + data.fromName).append('<span id="newMessage_' + data.fromName + '" style="color: red">+1</span>');
             }
         });
          stompClient.subscribe("/users", function (response) {
@@ -61,8 +61,8 @@ function sendMsg() {
     //let loggedInUserName = document.getElementById("email").value;
     let typedMsg = document.getElementById("idchattxt").value;
     stompClient.send("/app/chat/" + selectedUserUUID, {}, JSON.stringify({
-        fromLogin: store.get(LOGGED_IN_CHATID),
-        message: typedMsg
+        fromId: store.get(LOGGED_IN_CHATID),
+        msgTxt: typedMsg
     }));
 }
 function convertTime(time){
@@ -77,8 +77,8 @@ function convertTime(time){
 
 function receiveMessage(receivedMsg){
     var from = receivedMsg.fromName;
-    var recMsg = receivedMsg.message;
-    var recTime = convertTime(receivedMsg.receivedTime);
+    var recMsg = receivedMsg.msgTxt;
+    var recTime = convertTime(receivedMsg.time);
 
     const chatMessages = document.getElementById('idchatmessages');
 

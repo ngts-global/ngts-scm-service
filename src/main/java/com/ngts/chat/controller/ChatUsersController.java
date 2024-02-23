@@ -3,10 +3,10 @@ package com.ngts.chat.controller;
 import com.ngts.auth.jwt.AuthJwtUtils;
 import com.ngts.auth.payload.response.MessageResponse;
 import com.ngts.chat.service.ChatUsersService;
-import com.ngts.chat.vo.ChannelRegistrationRequestVO;
-import com.ngts.chat.vo.ChatRegisterationVO;
-import com.ngts.chat.vo.ChatUserVO;
-import com.ngts.chat.vo.UserResponseVO;
+import com.ngts.chat.vo.req.ChannelRegistrationRequestVO;
+import com.ngts.chat.vo.req.ChatRegisterationVO;
+import com.ngts.chat.vo.req.ChatUserVO;
+import com.ngts.chat.vo.res.UserResponseVO;
 import com.ngts.common.constants.NgtsCommonConstants;
 import com.ngts.common.redis.RedisCacheUtils;
 import com.ngts.common.utils.EmailValidator;
@@ -21,6 +21,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -62,10 +63,16 @@ public class ChatUsersController {
         System.out.println(className + " Login is success so creating new session. ");
         HttpSession session = request.getSession(true);
         System.out.println(className + " Session created " + session);
+        List<String> strings = Arrays.asList("foo", "bar");
+
         if(session != null)
             System.out.println(className + " Session ID " + session.getId());
-        responseUserObj.setChannels(chatUsersService.getRegisteredChannels());
+        UserResponseVO tempResponseVo = chatUsersService.getRegisteredChannels(responseUserObj.getChatUserId());
+        responseUserObj.setUsersChannelsList(tempResponseVo.getUsersChannelsList());
+        responseUserObj.setChatUsersLists(tempResponseVo.getChatUsersLists());
+
         simpMessagingTemplate.convertAndSend("/users" , responseUserObj); // This is to broadcast when the user is online.
+
         System.out.println(className + " User unique Id generated for the user " + responseUserObj.getChatUserId());
 
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())

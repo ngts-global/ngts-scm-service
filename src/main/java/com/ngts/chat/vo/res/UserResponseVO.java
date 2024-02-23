@@ -1,6 +1,5 @@
-package com.ngts.chat.vo;
+package com.ngts.chat.vo.res;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class UserResponseVO {
@@ -8,7 +7,8 @@ public class UserResponseVO {
     private String chatUserId;
     private String username;
     private String email;
-    private HashMap<ChannelRegResponseVO, List<UserResponseVO>> channels;
+    private List<UsersChannelsList> usersChannelsList;
+    private List<ChatUsersList> chatUsersLists;
 
     public String getEmail() {
         return email;
@@ -34,11 +34,19 @@ public class UserResponseVO {
         this.username = username;
     }
 
-    public HashMap<ChannelRegResponseVO, List<UserResponseVO>> getChannels() {
-        return channels;
+    public List<UsersChannelsList> getUsersChannelsList() {
+        return usersChannelsList;
     }
 
-    public void setChannels(HashMap<ChannelRegResponseVO, List<UserResponseVO>> channels) {
-        this.channels = channels;
+    public void setUsersChannelsList(List<UsersChannelsList> usersChannelsList) {
+        this.usersChannelsList = usersChannelsList;
+    }
+
+    public List<ChatUsersList> getChatUsersLists() {
+        return chatUsersLists;
+    }
+
+    public void setChatUsersLists(List<ChatUsersList> chatUsersLists) {
+        this.chatUsersLists = chatUsersLists;
     }
 }

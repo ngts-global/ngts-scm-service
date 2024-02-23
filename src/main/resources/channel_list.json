@@ -1,0 +1,136 @@
+{
+  "chatUserId": "dummy3",
+  "username": "dummy2",
+  "email": "dummy1",
+  "usersChannelsList": [
+    {
+      "channelName": "NGTS Dev",
+      "channelId": 79,
+      "creationTime": "1708545224000",
+      "channelStatus": "ACTIVE",
+      "ChannelMembers": [
+        {
+          "chatUserId": "3842a6cd-1590-4651-97f1-df210ba2a41a",
+          "username": "DigiitBiz",
+          "email": null
+        },
+        {
+          "chatUserId": "9fa28c1a-36fe-4325-a6b4-c05c8e70708c",
+          "username": "uma",
+          "email": null
+        },
+        {
+          "chatUserId": "efde19d7-8b36-4d62-ba7f-8e3a6bb714a7",
+          "username": "Nithish",
+          "email": null
+        }
+      ],
+      "messages": [
+        {
+          "msgId": 31,
+          "fromId": "9fa28c1a-36fe-4325-a6b4-c05c8e70708c",
+          "toId": "channelId",
+          "fromName": "Uma",
+          "toName": "NGTS Dev",
+          "time": "1708545224000",
+          "status": "S",
+          "msgType": "txt",
+          "msgTxt": "Hello"
+        },
+        {
+          "msgId": 32,
+          "fromId": "3842a6cd-1590-4651-97f1-df210ba2a41a",
+          "toId": "channelId",
+          "fromName": "DigiitBiz",
+          "toName": "NGTS Dev",
+          "time": "1708458824000",
+          "status": "S",
+          "msgType": "txt",
+          "msgTxt": "Hello"
+        },
+        {
+          "msgId": 33,
+          "fromId": "efde19d7-8b36-4d62-ba7f-8e3a6bb714a7",
+          "toId": "channelId",
+          "fromName": "Nithish",
+          "toName": "NGTS Dev",
+          "time": "1708426424000",
+          "status": "S",
+          "msgType": "txt",
+          "msgTxt": "Hello"
+        }
+      ]
+    }
+  ],
+  "chatUsersLists": [
+    {
+      "chatUserId": "3842a6cd-1590-4651-97f1-df210ba2a41a",
+      "username": "DigiitBiz",
+      "email": null,
+      "messages": [
+        {
+          "msgId": 31,
+          "fromId": "fc1e7253-04a7-4a67-841d-e3df99a545b4",
+          "toId": "3842a6cd-1590-4651-97f1-df210ba2a41a",
+          "fromName": "RamadossPgm",
+          "toName": "DigiitBiz",
+          "time": "1708426424000",
+          "status": "S",
+          "msgType": "txt",
+          "msgTxt": "Hello"
+        },
+        {
+          "msgId": 32,
+          "fromId": "3842a6cd-1590-4651-97f1-df210ba2a41a",
+          "toId": "fc1e7253-04a7-4a67-841d-e3df99a545b4",
+          "fromName": "DigiitBiz",
+          "toName": "RamadossPgm",
+          "time": "1708445476000",
+          "status": "S",
+          "msgType": "txt",
+          "msgTxt": "second msg from server"
+        },
+        {
+          "msgId": 33,
+          "fromId": "fc1e7253-04a7-4a67-841d-e3df99a545b4",
+          "toId": "3842a6cd-1590-4651-97f1-df210ba2a41a",
+          "fromName": "RamadossPgm",
+          "toName": "DigiitBiz",
+          "time": "1705767076000",
+          "status": "S",
+          "msgType": "txt",
+          "msgTxt": "what are you doing buddy ? "
+        },
+        {
+          "msgId": 34,
+          "fromId": "3842a6cd-1590-4651-97f1-df210ba2a41a",
+          "toId": "fc1e7253-04a7-4a67-841d-e3df99a545b4",
+          "fromName": "DigiitBiz",
+          "toName": "RamadossPgm",
+          "time": "1708426424000",
+          "status": "S",
+          "msgType": "txt",
+          "msgTxt": "testing the msg from server to client"
+        }
+      ]
+    },
+    {
+      "chatUserId": "9fa28c1a-36fe-4325-a6b4-c05c8e70708c",
+      "username": "uma",
+      "email": null,
+      "messages": [
+        {
+          "msgId": 31,
+          "fromId": "9fa28c1a-36fe-4325-a6b4-c05c8e70708c",
+          "toId": "fc1e7253-04a7-4a67-841d-e3df99a545b4",
+          "fromName": "Uma",
+          "toName": "RamadossPgm",
+          "time": "1708080824000",
+          "status": "S",
+          "msgType": "txt",
+          "msgTxt": "Hello"
+        }
+      ]
+    }
+  ]
+}

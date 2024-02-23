@@ -1,4 +1,4 @@
-package com.ngts.chat.vo;
+package com.ngts.chat.vo.req;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -15,5 +15,15 @@ public class ChannelRegistrationRequestVO {
 
     public void setChannelName(String channelName) {
         this.channelName = channelName;
+    }
+
+    private String createrId;
+
+    public String getCreaterId() {
+        return createrId;
+    }
+
+    public void setCreaterId(String createrId) {
+        this.createrId = createrId;
     }
 }
