@@ -1,4 +1,4 @@
-package com.ngts.chat.vo;
+package com.ngts.chat.vo.req;
  import java.util.Set;
  import jakarta.validation.constraints.*;
 
