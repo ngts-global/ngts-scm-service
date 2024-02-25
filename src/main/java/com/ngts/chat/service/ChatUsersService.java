@@ -13,7 +13,6 @@ import com.ngts.chat.vo.res.UserResponseVO;
 import com.ngts.scm.dto.StudentDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ngts.chat.entity.ChatUserEntity;
@@ -21,6 +20,7 @@ import com.ngts.chat.repository.ChatUserRepository;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -89,14 +89,45 @@ public class ChatUsersService {
     public List<UserResponseVO> findConnectedUsers() {
         List<ChatUserEntity> chatUserEntityList = repository.findAll();
         List<UserResponseVO> userResponseVOList = new ArrayList<>();
+    try{
+        List<CompletableFuture<List<ChatUsersList>>> allUsersAndChatMsgList = chatUserEntityList.stream().map(userResponseEntity -> asyncChatUserList(userResponseEntity.getChatId())).collect(Collectors.toList());
+        log.error(className + " Total parallel task " + allUsersAndChatMsgList.size());
+
+        CompletableFuture<Void> allFutures = CompletableFuture.allOf(allUsersAndChatMsgList.toArray(new  CompletableFuture[allUsersAndChatMsgList.size()]));
+
+        CompletableFuture<List<List<ChatUsersList>>> allFutureList = allFutures.thenApply(v -> {
+            return allUsersAndChatMsgList.stream()
+                    .map(data -> data.join())
+                    .collect(Collectors.toList());
+        });
+
+        List<ChatUsersList> finalList = new ArrayList<>();
+        allFutureList.get().stream().forEach(chatUsersLists -> {
+            //log.error(" Second Size >>> " + chatUsersLists.size());
+            chatUsersLists.stream().forEach(chatUserObj -> {
+             //   log.error("instance inside list name : " + chatUserObj.getUsername()+", chat Id :  " + chatUserObj.getChatUserId() + " ,  Total " + chatUserObj.getMessages().size());
+                finalList.add(chatUserObj);
+
+            });
+        });
+        //log.error(">>>>>>>>> Total messages " + finalList.size());
+        Map<String, List<ChatUsersList>> chatUsers =   finalList.stream().collect(Collectors.groupingBy(data -> data.getChatUserId()));
+        //log.error(" >>>>>>>>>>> " + chatUsers);
         chatUserEntityList.forEach(chatUserEntity -> {
             UserResponseVO userResponseVO = new UserResponseVO();
             userResponseVO.setChatUserId(chatUserEntity.getChatId());
             userResponseVO.setUsername(chatUserEntity.getUsername());
+            if(chatUsers.containsKey(chatUserEntity.getChatId())){
+                userResponseVO.setChatUsersLists(chatUsers.get(chatUserEntity.getChatId()));
+            }else {
 
+            }
             userResponseVOList.add(userResponseVO);
         });
-        return userResponseVOList;
+    }catch (Exception e){
+       log.error(className + " Error in executing the fetch all users " + e);
+    }
+      return userResponseVOList;
     }
 
     public List<StudentDTO> getStudentsByEmail(ChatUserVO chatUserVO){
@@ -119,44 +150,23 @@ public class ChatUsersService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        long startTime = System.currentTimeMillis();
         userResponseVO.setChatUsersLists(getTopMessagesFortheUser(chatUserId));
-        //getTopMessagesFortheUser(chatUserId);
-       return userResponseVO;
-/*
-        List<ChannelRegResponseVO> channelRegResponseVOList = new ArrayList<>();
-
-        ChannelRegResponseVO responseVO  = new ChannelRegResponseVO();
-        responseVO.setChannelId(1000);
-        responseVO.setChannelName("ngts dev group");
-        ChannelRegResponseVO responseVO1  = new ChannelRegResponseVO();
-        responseVO1.setChannelId(2000);
-        responseVO1.setChannelName("biz group");
-        channelRegResponseVOList.add(responseVO);
-        channelRegResponseVOList.add(responseVO1);
-
-        UsersRegisteredChannels usersRegisteredChannels = new UsersRegisteredChannels();
-        usersRegisteredChannels.setChannelRegResponseVOList(channelRegResponseVOList);
-        usersRegisteredChannels.setUserResponseVOList(findConnectedUsers());
-
-        List<UsersRegisteredChannels> registeredChannelsList = new ArrayList<>();
-        registeredChannelsList.add(usersRegisteredChannels);
-
-        usersChannelsList.put(responseVO.getChannelId(), registeredChannelsList);
-        usersChannelsList.put(responseVO1.getChannelId(), registeredChannelsList);
-
-*/
-      //  return usersChannelsList;
+        log.error(" Time taken for getTopMessagesFortheUser " + (System.currentTimeMillis() - startTime));
+        return userResponseVO;
     }
 
-    public List<ChatUsersList>  getTopMessagesFortheUser(String fromId){
+    private List<ChatUsersList>  getTopMessagesFortheUser(String fromId){
 
-        List<Messages> topMessagesList = messagesRepository.findByTopMessages(fromId);
+        List<Messages> topMessagesList = messagesRepository.findByFromId(fromId);
         log.error(className + " Top messages length >> " + topMessagesList.size());
-
+        topMessagesList.stream().forEach(messages -> {
+            log.error(messages.getFromId() + " " + messages.getToId() + " " + messages.getFromName() + " " + messages.getToName() + " " + messages.getMessage());
+        });
 
         Map<String, List<Messages>> usersMessages = topMessagesList.stream().collect(Collectors.groupingBy(data -> data.getToId()));
         Map<String, List<Messages>> usersMessages1 =  topMessagesList.stream().collect(Collectors.groupingBy(data -> data.getFromId()));
-       // Map<String, List<Messages>> usersMessages2 = new HashMap<>();
+
         usersMessages1.forEach((s, messages) -> {
             if( s != fromId){
                 if(usersMessages.containsKey(s)){
@@ -168,16 +178,10 @@ public class ChatUsersService {
         });
 
         usersMessages.remove(fromId); // removing my duplicate msgs
-        usersMessages.forEach((s, messages) -> {
-            System.out.println("-------  " + s);
-            messages.stream().forEach(messages1 -> {
-                System.out.println(messages1.getMsgId());
-            });
-        });
 
         List<ChatUsersList> chatUsersLists = new ArrayList<>();
 
-        usersMessages.forEach((s, messages) -> {
+         usersMessages.forEach((s, messages) -> {
             ChatUsersList chatUsers = new ChatUsersList();
             ArrayList<MessageVO> msgVoList = new ArrayList<>();
             chatUsers.setChatUserId(s);
@@ -193,7 +197,11 @@ public class ChatUsersService {
                 messageVO.setMsgType(x.getMessageType());
                 messageVO.setStatus(x.getMsgStatus());
                 messageVO.setTime(String.valueOf(x.getCreatedAt().toInstant().toEpochMilli()));
-                chatUsers.setUsername(x.getFromName());
+                if(messageVO.getFromId().equalsIgnoreCase(s)) {
+                    chatUsers.setUsername(x.getFromName());
+                }else {
+                    chatUsers.setUsername(x.getToName());
+                }
                 msgVoList.add(messageVO);
             });
             chatUsers.setMessages(msgVoList);
@@ -202,4 +210,19 @@ public class ChatUsersService {
 
         return chatUsersLists;
     }
+
+    public List<UsersChannelsList>  getTopChannelUsers(String fromId){
+
+        List<UsersChannelsList> topChannelList = new ArrayList<>();
+        return topChannelList;
+    }
+
+
+    private CompletableFuture<List<ChatUsersList>> asyncChatUserList(String chatUserId){
+        CompletableFuture<List<ChatUsersList>> chatUsersFuture = CompletableFuture.supplyAsync(()->{
+            return getTopMessagesFortheUser(chatUserId);
+        });
+        return chatUsersFuture;
+    }
+
 }

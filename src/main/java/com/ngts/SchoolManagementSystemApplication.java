@@ -22,9 +22,11 @@ public class SchoolManagementSystemApplication {
 	@Value("${http.port}")
 	private int httpPort;
 
+
 	public static void main(String[] args) {
 		SpringApplication application = new SpringApplication(SchoolManagementSystemApplication.class);
 		application.run(args);
+
 	}
 
 	@Bean
