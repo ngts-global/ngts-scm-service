@@ -156,7 +156,7 @@ public class ChatUsersService {
         return userResponseVO;
     }
 
-    private List<ChatUsersList>  getTopMessagesFortheUser(String fromId){
+    public List<ChatUsersList>  getTopMessagesFortheUser(String fromId){
 
         List<Messages> topMessagesList = messagesRepository.findByFromId(fromId);
         log.error(className + " Top messages length >> " + topMessagesList.size());
@@ -181,7 +181,7 @@ public class ChatUsersService {
 
         List<ChatUsersList> chatUsersLists = new ArrayList<>();
 
-         usersMessages.forEach((s, messages) -> {
+        usersMessages.forEach((s, messages) -> {
             ChatUsersList chatUsers = new ChatUsersList();
             ArrayList<MessageVO> msgVoList = new ArrayList<>();
             chatUsers.setChatUserId(s);
@@ -210,6 +210,61 @@ public class ChatUsersService {
 
         return chatUsersLists;
     }
+
+    public List<ChatUsersList>  getMessagesFor2Users(String fromId, String toId){
+        List<Messages> topMessagesList = messagesRepository.findMessagesBetweenUsers(fromId, toId);
+        log.error(className + " Top messages length >> " + topMessagesList.size());
+        topMessagesList.stream().forEach(messages -> {
+            log.error(messages.getFromId() + " " + messages.getToId() + " " + messages.getFromName() + " " + messages.getToName() + " " + messages.getMessage());
+        });
+
+        Map<String, List<Messages>> usersMessages = topMessagesList.stream().collect(Collectors.groupingBy(data -> data.getToId()));
+        Map<String, List<Messages>> usersMessages1 =  topMessagesList.stream().collect(Collectors.groupingBy(data -> data.getFromId()));
+
+        usersMessages1.forEach((s, messages) -> {
+            if( s != fromId){
+                if(usersMessages.containsKey(s)){
+                    usersMessages.get(s).addAll(messages);
+                }else {
+                    usersMessages.put(s, messages);
+                }
+            }
+        });
+
+        usersMessages.remove(fromId); // removing my duplicate msgs
+
+        List<ChatUsersList> chatUsersLists = new ArrayList<>();
+
+        usersMessages.forEach((s, messages) -> {
+            ChatUsersList chatUsers = new ChatUsersList();
+            ArrayList<MessageVO> msgVoList = new ArrayList<>();
+            chatUsers.setChatUserId(s);
+
+            messages.stream().forEach(x -> {
+                MessageVO messageVO = new MessageVO();
+                messageVO.setFromId(x.getFromId());
+                messageVO.setFromName(x.getFromName());
+                messageVO.setMsgId(x.getMsgId());
+                messageVO.setMsgTxt(x.getMessage());
+                messageVO.setToName(x.getToName());
+                messageVO.setToId(x.getToId());
+                messageVO.setMsgType(x.getMessageType());
+                messageVO.setStatus(x.getMsgStatus());
+                messageVO.setTime(String.valueOf(x.getCreatedAt().toInstant().toEpochMilli()));
+                if(messageVO.getFromId().equalsIgnoreCase(s)) {
+                    chatUsers.setUsername(x.getFromName());
+                }else {
+                    chatUsers.setUsername(x.getToName());
+                }
+                msgVoList.add(messageVO);
+            });
+           // chatUsers.setMessages(msgVoList);
+            chatUsersLists.add(chatUsers);
+        });
+
+        return chatUsersLists;
+    }
+
 
     public List<UsersChannelsList>  getTopChannelUsers(String fromId){
 
