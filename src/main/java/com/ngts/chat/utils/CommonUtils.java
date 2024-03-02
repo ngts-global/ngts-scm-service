@@ -26,6 +26,11 @@ public class CommonUtils {
         return offsetDateTime;
     }
 
+    public static OffsetDateTime getTokenValidTime(){
+        OffsetDateTime offsetDateTime   = OffsetDateTime.now();
+        offsetDateTime.plusDays(7);
+        return offsetDateTime;
+    }
     public static void main(String[] args) {
         for (int i=0; i < 10 ; i++)
         System.out.println(CommonUtils.generateUID());

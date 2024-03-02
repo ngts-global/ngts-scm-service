@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ngts.chat.entity.Messages;
 import com.ngts.chat.entity.enum1.EChatRegistrationStatus;
 import com.ngts.chat.repository.MessagesRepository;
+import com.ngts.chat.utils.CommonUtils;
 import com.ngts.chat.vo.req.MessageVO;
 import com.ngts.chat.vo.res.ChatUsersList;
 import com.ngts.chat.vo.res.UsersChannelsList;
@@ -22,7 +23,6 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -44,7 +44,36 @@ public class ChatUsersService {
            ChatUserEntity recordFromUdb = usersList.get(0);
            userResponseVO.setUsername(recordFromUdb.getUsername());
            userResponseVO.setChatUserId(recordFromUdb.getChatId());
+           userResponseVO.setEmail(recordFromUdb.getEmail());
            return  userResponseVO;
+        }else {
+            return null;
+        }
+    }
+
+    public  UserResponseVO findAllUsersByEmailAndPin(String email, Integer pin){
+        List<ChatUserEntity> usersList =   repository.findAllUsersByEmailAndPin(email, pin)
+                .orElseThrow(() -> new NoSuchElementException("Resource not found for this email &  pin : " + email));
+        if(usersList != null & usersList.size() == 1){
+            UserResponseVO userResponseVO = new UserResponseVO();
+            ChatUserEntity recordFromUdb = usersList.get(0);
+            userResponseVO.setUsername(recordFromUdb.getUsername());
+            userResponseVO.setChatUserId(recordFromUdb.getChatId());
+            return  userResponseVO;
+        }else {
+            return null;
+        }
+
+    }
+    public  UserResponseVO findByChatIdAndPin(String chatId, Integer pin){
+        List<ChatUserEntity> usersList =   repository.findByChatIdAndPin(chatId, pin)
+                .orElseThrow(() -> new NoSuchElementException("Resource not found for this token : "));
+        if(usersList != null & usersList.size() == 1){
+            UserResponseVO userResponseVO = new UserResponseVO();
+            ChatUserEntity recordFromUdb = usersList.get(0);
+            userResponseVO.setUsername(recordFromUdb.getUsername());
+            userResponseVO.setChatUserId(recordFromUdb.getChatId());
+            return  userResponseVO;
         }else {
             return null;
         }
@@ -83,6 +112,9 @@ public class ChatUsersService {
         chatUserEntity.setChatId(uniqueUserId);
         chatUserEntity.setRegistrationStatus(EChatRegistrationStatus.PENDING.name());
         chatUserEntity.setPassword(chatRegisterationVO.getPassword());
+        chatUserEntity.setPin(123456);
+        chatUserEntity.setValidupto(CommonUtils.getTokenValidTime());
+        chatUserEntity.setToken("");
         repository.save(chatUserEntity);
     }
 

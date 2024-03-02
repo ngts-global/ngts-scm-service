@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import jakarta.persistence.*;
 import com.ngts.chat.entity.enum1.*;
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter
@@ -31,6 +32,16 @@ public class ChatUserEntity {
 
     @Column(name = "username", nullable = false)
     private String username;
+
+    @Column(name = "pin", nullable = false)
+    private Integer pin;
+
+    @Column(name = "token", nullable = false)
+    private String token;
+
+    @Column(name = "valid_upto", nullable = false)
+    private OffsetDateTime validupto;
+
 
     @NotBlank
     @Size(max = 120)
@@ -73,5 +84,41 @@ public class ChatUserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getPin() {
+        return pin;
+    }
+
+    public void setPin(Integer pin) {
+        this.pin = pin;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public OffsetDateTime getValidupto() {
+        return validupto;
+    }
+
+    public void setValidupto(OffsetDateTime validupto) {
+        this.validupto = validupto;
+    }
+
+    public String getRegistrationStatus() {
+        return registrationStatus;
     }
 }

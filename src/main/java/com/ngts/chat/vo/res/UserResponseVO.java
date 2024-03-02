@@ -2,7 +2,7 @@ package com.ngts.chat.vo.res;
 
 import java.util.List;
 
-public class    UserResponseVO {
+public class  UserResponseVO {
 
     private String chatUserId;
     private String username;
