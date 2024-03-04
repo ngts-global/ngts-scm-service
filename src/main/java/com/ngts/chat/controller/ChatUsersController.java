@@ -81,9 +81,9 @@ public class ChatUsersController {
         }
 
 
-        UserResponseVO tempResponseVo = chatUsersService.getRegisteredChannels(responseUserObj.getChatUserId());
+        /*UserResponseVO tempResponseVo = chatUsersService.getRegisteredChannels(responseUserObj.getChatUserId());
         responseUserObj.setUsersChannelsList(tempResponseVo.getUsersChannelsList());
-        responseUserObj.setChatUsersLists(tempResponseVo.getChatUsersLists());
+        responseUserObj.setChatUsersLists(tempResponseVo.getChatUsersLists());*/
 
 
         pinValidationResponse.setIsValid("");
@@ -110,8 +110,8 @@ public class ChatUsersController {
         //if(sessionRoles.equals(SessionRoles.DEMOTED)){
                 String pin = pinRequestVO.getInputPin();
                 log.error(" User entered Pin " + pin);
-                UserResponseVO userResponseVO =  sessionUtils.getCustomerProfile(request);
-                log.error(" Email from profile object " + userResponseVO.getEmail() + " , Chat Id " + userResponseVO.getChatUserId());
+                //UserResponseVO userResponseVO =  sessionUtils.getCustomerProfile(request);
+                //log.error(" Email from profile object " + userResponseVO.getEmail() + " , Chat Id " + userResponseVO.getChatUserId());
 
                 UserResponseVO responseUserObj =   chatUsersService.findByChatIdAndPin(pinRequestVO.getChatId(), Integer.parseInt(pin));
                 if(responseUserObj == null){
@@ -174,14 +174,14 @@ public class ChatUsersController {
     @PostMapping("/messages")
     public ResponseEntity<?> getUsersMessages(@RequestBody MessageRequestVO messageRequestVO, HttpServletRequest request, HttpServletResponse response){
         log.error(className + " Requesting all messages for " + messageRequestVO.getChatUserId());
-        UserResponseVO customerProfile = sessionUtils.getCustomerProfile(request);
+     /*   UserResponseVO customerProfile = sessionUtils.getCustomerProfile(request);
         if(customerProfile == null){
             log.error(className + " error in reading customer profile ");
         } else {
             log.error(className + " customer profile details  " + customerProfile.getChatUserId() + " , Name " + customerProfile.getUsername());
-        }
+        }*/
 
-        List<ChatUsersList> msgList = chatUsersService.getMessagesFor2Users(messageRequestVO.getChatUserId(), customerProfile.getChatUserId());
+        List<ChatUsersList> msgList = chatUsersService.getMessagesFor2Users(messageRequestVO.getChatUserId(), messageRequestVO.getChatUserId());
         return ResponseEntity.ok().body(msgList);
     }
 
